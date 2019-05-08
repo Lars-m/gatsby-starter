@@ -4,8 +4,6 @@ import Layout from "../components/layout";
 //import { node } from "prop-types";
 import all from "../helpers/periodLinks";
 import goals from "../../images/goals.png";
-
-
 const periodLinks = all.periodLinks;
 
 function getDayInWeekFromDkDate(date) {
@@ -32,25 +30,25 @@ export default ({ data }) => {
   let links = [];
   let periodInfoHtml = null;
   let periodTitle = null;
-  const sorted = periodLinks(data.allMarkdownRemark.edges, slug);
+  const sorted = periodLinks(data.allMarkdownRemark.nodes, slug);
   //CHECK THIS
   periodInfoHtml = post.html;
   periodTitle = post.frontmatter.periodTitle;
   links = sorted.map((day, index) => {
-    const dayInWeek = getDayInWeekFromDkDate(day.node.frontmatter.date);
+    const dayInWeek = getDayInWeekFromDkDate(day.frontmatter.date);
     return (
       <tr key={index}>
         <td style={{ width: 100 }}>
           <Link
             style={{ fontSize: "larger", textDecoration: "none" }}
-            to={day.node.fields.slug}
+            to={day.fields.slug}
           >
-            <span id={day.node.fields.slug.split("/")[1]}>{dayInWeek}</span>
+            <span id={day.fields.slug.split("/")[1]}>{dayInWeek}</span>
           </Link>
           <br />
-          {day.node.frontmatter.date}
+          {day.frontmatter.date}
         </td>
-        <td>{day.node.frontmatter.pageintro}</td>
+        <td>{day.frontmatter.pageintro}</td>
       </tr>
     );
   });
@@ -109,8 +107,7 @@ export const query = graphql`
       }
     }
     allMarkdownRemark {
-      edges {
-        node {
+      nodes {
           html
           frontmatter {
             title
@@ -122,11 +119,18 @@ export const query = graphql`
           }
           fields {
             slug
+            inFolder
+            isIndex
+            depth
+            isSinglePageDocument
+            isPeriodDescription
             isSubPeriodDescription
-        isPeriodDescription
+            shortTitle
+            belongsToPeriod
+            parentFolder
           }
         }
       }
-    }
+    
   }
 `;

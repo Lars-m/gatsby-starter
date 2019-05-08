@@ -21,9 +21,10 @@ class Container extends React.Component {
     super(props);
     //necessary since first time it executes it's done by node and not in a browser
     this.state = { offline: false, showModal: false };
+
   }
 
-  componentDidMount() { 
+  componentDidMount() {
     window.addEventListener("click", this.clicked);
     window.addEventListener("online", this.setOffline);
     window.addEventListener("offline", this.setOffline);
@@ -49,105 +50,111 @@ class Container extends React.Component {
 
   closeModal = () => this.setState({ showModal: false });
   setOffline = () => this.setState({ offline: !navigator.onLine });
-  
 
+  /* render(){
+    const data = this.props;
+    console.log(data.allMarkdownRemark.nodes)
+   // const linksForAll = getLinksForAllPeriods(data.allMarkdownRemark.nodes);
+    return <div>Hello World</div>
+  } */
   render() {
     //console.log("STATE", this.state);
     const data = this.props;
-    {
-      //const map = linksForAllPeriods(data.allMarkdownRemark.edges);
-      const linksForAll = getLinksForAllPeriods(data.allMarkdownRemark.edges);
-      const subLinks = getLinksForCurrentPeriod();
-      console.log("SUBLINGS",subLinks)
-      const subLinksHTML = subLinks.map((n, index) => {
-        const slug = n.node.fields.slug;
-        //console.log("SLUG--->", slug);
-        return (
-          <React.Fragment key={index}>
-            <Link key={n.id} to={slug} activeClassName="active">
-              <span id={getPeriodfromSlug(slug)}>
-                {n.node.frontmatter.date}
-              </span>
-            </Link>
-          </React.Fragment>
-        );
-      });
    
-      const topLinks = data.site.siteMetadata.topMenu.map(l=>{
-        if (!(l.URL || l.route)){
-          throw new Error("Either a URL or a route must be provided for a topMenu entry")
-        }
-        return l.URL ? 
+    console.log(data.allMarkdownRemark.nodes)
+    //const map = linksForAllPeriods(data.allMarkdownRemark.edges);
+    const linksForAll = getLinksForAllPeriods(data.allMarkdownRemark.nodes);
+    console.log("ALL",linksForAll)
+    const subLinks = getLinksForCurrentPeriod();
+    //console.log("SUBLINGS", subLinks)
+    const subLinksHTML = subLinks.map((n, index) => {
+      const slug = n.fields.slug;
+      //console.log("SLUG--->", slug);
+      return (
+        <React.Fragment key={index}>
+          <Link key={n.id} to={slug} activeClassName="active">
+            <span id={getPeriodfromSlug(slug)}>
+              {n.frontmatter.date}
+            </span>
+          </Link>
+        </React.Fragment>
+      );
+    });
+
+    const topLinks = data.site.siteMetadata.topMenu.map(l => {
+      if (!(l.URL || l.route)) {
+        throw new Error("Either a URL or a route must be provided for a topMenu entry")
+      }
+      return l.URL ?
         (<a key={l.title} href={l.URL} target="_blank" rel="noopener noreferrer"> {l.title}</a>) :
         (<Link key={l.title} to={l.route} target="_blank" activeClassName="active"> {l.title}</Link>)
-        
-      })
-          
-      let links = [];
-      for(let p in linksForAll){
-        //console.log("SLUGPART",linksForAll[p].slugPart)
-        links.push((
-          <Link key={linksForAll[p].id} to={linksForAll[p].slugPart} activeClassName="active">
-            <span id={linksForAll[p].slugPart}>{linksForAll[p].period}</span>
-          </Link>
-        ))
-      }
-      return (
-        <div
-          //This is "hacky", but it gets the id from the inner span in a-tags
-          onClick={e => {
-            let tagName = e.target.tagName.toUpperCase();
-            //console.log("TagName", tagName, e.target.innerText, e.target.id);
-            if (
-              tagName === "A" &&
-              e.target.children[0] &&
-              e.target.children[0].tagName === "SPAN"
-            ) {
-              console.log("AAA",e.target.children[0].id)
-              setCurrentPeriod(e.target.children[0].id);
-            } else if (tagName === "SPAN") {
-              console.log("BBB",e.target,e.target.id)
-              setCurrentPeriod(e.target.id);
-            } else {
-              setCurrentPeriod("-");
-            }
-          }}
-        >
-          <div className="header">
-            <div className="title">
-              <img src={logo} alt="Logo" />
-              <div style={{ alignSelf: "flex-start", marginLeft: "2em" }}>
-                <h1>{data.site.siteMetadata.title1}</h1>
-                <p>{data.site.siteMetadata.title2}</p>
-              </div>
-            </div>
-            <div className="main-links">
-              {topLinks}
+
+    })
+
+    let links = [];
+    for (let p in linksForAll) {
+      //console.log("SLUGPART",linksForAll[p].slugPart)
+      links.push((
+        <Link key={linksForAll[p].id} onClick={() => console.log("Cliecked")} to={linksForAll[p].slugPart} activeClassName="active">
+          <span id={linksForAll[p].slugPart}>{linksForAll[p].period}</span>
+        </Link>
+      ))
+    }
+    return (
+      <div
+        //This is "hacky", but it gets the id from the inner span in a-tags
+        onClick={e => {
+          let tagName = e.target.tagName.toUpperCase();
+          //console.log("TagName", tagName, e.target.innerText, e.target.id);
+          if (
+            tagName === "A" &&
+            e.target.children[0] &&
+            e.target.children[0].tagName === "SPAN"
+          ) {
+            console.log("AAA", e.target.children[0].id)
+            setCurrentPeriod(e.target.children[0].id);
+          } else if (tagName === "SPAN") {
+            setCurrentPeriod(e.target.id);
+          } else {
+            setCurrentPeriod("-");
+          }
+        }}
+      >
+        <div className="header">
+          <div className="title">
+            <img src={logo} alt="Logo" />
+            <div style={{ alignSelf: "flex-start", marginLeft: "2em" }}>
+              <h1>{data.site.siteMetadata.title1}</h1>
+              <p>{data.site.siteMetadata.title2}</p>
             </div>
           </div>
-
-          <div className="content-frame" >
-            <div className="period-links">
-              {links}
-              {/* HACK to ensure icon is preloaded while online*/}
-              <img style={{ width: 1 }} src={offline} alt="dummy" />{" "}
-              {this.state.offline && (
-                <img className="online" src={offline} alt="off-line" />
-              )}
-            </div>
-            <div className="link-days">{subLinksHTML}</div>
-            <Modal
-              key={this.state.showModal}
-              header="Off-line"
-              body="You are currently off-line"
-              show={this.state.showModal}
-              onClose={this.closeModal}
-            />
-            <div> {this.props.children}</div>
+          <div className="main-links">
+            {topLinks}
           </div>
         </div>
-      );
-    }
+
+        <div className="content-frame" >
+          <div className="period-links">
+            {links}
+            {/* HACK to ensure icon is preloaded while online*/}
+            <img style={{ width: 1 }} src={offline} alt="dummy" />{" "}
+            {this.state.offline && (
+              <img className="online" src={offline} alt="off-line" />
+            )}
+          </div>
+          <div className="link-days">{subLinksHTML}</div>
+          <Modal
+            key={this.state.showModal}
+            header="Off-line"
+            body="You are currently off-line"
+            show={this.state.showModal}
+            onClose={this.closeModal}
+          />
+          <div> {this.props.children}</div>
+        </div>
+      </div>
+    );
+
   }
 }
 
@@ -161,19 +168,25 @@ export default ({ children }) => (
 var query = graphql`
   {
     allMarkdownRemark {
-      edges {
-        node {
-          id
-          frontmatter {
-            periodTitle
-            period
-            date
-          }
-          fields {
-            slug
-            isSubPeriodDescription
-            isPeriodDescription
-          }
+      nodes {
+        id
+        frontmatter {
+          periodTitle
+          period
+          date
+        }
+
+        fields {
+          slug
+          inFolder
+          isIndex
+          depth
+          isSinglePageDocument
+          isPeriodDescription
+          isSubPeriodDescription
+          shortTitle
+          belongsToPeriod
+          parentFolder
         }
       }
     }

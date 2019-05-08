@@ -7,8 +7,8 @@ import Layout from "../components/layout.js";
 export default function createLinkPage(startTag,endTag,title,useLineBreaks){
 
   return ({ data }) => {
-    let days = data.allMarkdownRemark.edges.filter(
-      ({ node }) => node.fields.belongsToPeriod
+    let days = data.allMarkdownRemark.nodes.filter(
+      ( node ) => node.fields.belongsToPeriod
     );
     //console.log(days.map(({node})=>node.frontmatter.date))
     days = days.map(d => {

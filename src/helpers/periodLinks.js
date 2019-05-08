@@ -9,21 +9,21 @@ function getDateFromDkDate(date) {
 /*
 returns all links for a period given via the slug
 */
-function periodLinks(edges, slug) {
-  const days = edges
+function periodLinks(nodes, slug) {
+  const days = nodes
     .filter(e => {
-      //console.log(e.node.fields.slug,periodTitle);
+      console.log("XX->",e);
       const isIndex =
-        e.node.fields.isSubPeriodDescription ||
-        e.node.fields.isPeriodDescription;
-      const matchesSlug = e.node.fields.slug.indexOf(slug) >= 0;
+        e.fields.isSubPeriodDescription ||
+        e.fields.isPeriodDescription;
+      const matchesSlug = e.fields.slug.indexOf(slug) >= 0;
       //console.log("MATCH",matchesSlug && !isIndex,matchesSlug,!isIndex)
       return matchesSlug && !isIndex;
     })
     .map(e => {
-      if(!e.node.frontmatter.date)
-      console.log("DATE",e.node.frontmatter)
-      e.dateFromStr = getDateFromDkDate(e.node.frontmatter.date);
+      if(!e.frontmatter.date)
+      console.log("DATE",e.frontmatter)
+      e.dateFromStr = getDateFromDkDate(e.frontmatter.date);
       return e;
     });
   //console.log("DAYS", days);
@@ -48,22 +48,19 @@ function linksFacade() {
       }
       return [];
     },
-    getLinksForAllPeriods: edges => {
+    getLinksForAllPeriods: nodes => {
+     
       if (asMap !== null) {
         //console.log("CACHED")
         return asMap;
       }
-      const periods = edges
-        .filter(e => e.node.fields.isPeriodDescription)
+      const periods = nodes
+        .filter(e => e.fields.isPeriodDescription)
         .map(e => {
-          //let period;
-          //  if (e.node.fields.isSubPeriodDescription) {
-          //    period = e.node.fields.slug.split("/")[2];
-          //  } else {
-          //const slugPart = e.node.fields.slug.split("/")[1];
-          const slugPart = e.node.fields.slug;
-          const id = e.node.id;
-          const period = e.node.frontmatter.period;
+         
+          const slugPart = e.fields.slug;
+          const id = e.id;
+          const period = e.frontmatter.period;
           //console.log("PERIOD",period,id,slugPart,"---",e.node.fields.slug);
           return { slugPart, period, id };
         });
@@ -72,12 +69,12 @@ function linksFacade() {
         a.slugPart.toLowerCase() >= b.slugPart.toLowerCase() ? 1 : -1
       );
 
-      const subPeriods = edges
-        .filter(e => e.node.fields.isSubPeriodDescription)
+      const subPeriods = nodes
+        .filter(e => e.fields.isSubPeriodDescription)
         .map(e => {
-          const sub = e.node.fields.slug.split("/")[2];
-          const parent = e.node.fields.slug.split("/")[1];
-          const period = e.node.frontmatter.period;
+          const sub = e.fields.slug.split("/")[2];
+          const parent = e.fields.slug.split("/")[1];
+          const period = e.frontmatter.period;
           //console.log("hhh->",sub,parent,period,e.node.fields.slug);
           return { sub, parent, period };
         })
@@ -105,7 +102,8 @@ function linksFacade() {
         return accumulator;
       }, {});
       for (let p in asMap) {
-        const pl = periodLinks(edges, asMap[p].slugPart);
+        console.log("hhh",nodes)
+        const pl = periodLinks(nodes, asMap[p].slugPart);
         asMap[p].subLinks = pl;
       }
       //console.log("AS_Map",asMap)

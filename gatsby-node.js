@@ -15,6 +15,8 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     console.log("LAST",relevantPath)
     const isIndex = fileParts[fileParts.length-1]==="index.md";
     const folderName = fileParts[fileParts.length-2];
+    const parentFolder = fileParts[fileParts.length-3];
+    const deept = fileParts.length-2;
     const parts = slug.split("/");
     //Always include the slug
     createNodeField({
@@ -50,7 +52,8 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     }
     createNodeField({node, name:"inFolder",value: folderName })
     createNodeField({node, name: `isIndex`,value: isIndex});
-    createNodeField({node, name: `depth`,value: fileParts.length-2});
+    createNodeField({node, name: `depth`,value: deept});
+    createNodeField({node, name: `parentFolder`,value: parentFolder});
 
     if (parts.length > 4 && node.fileAbsolutePath.includes("/index.md")) {
       throw new Error("Periods can only have sub-periods one level down")
@@ -116,7 +119,6 @@ exports.createPages = ({ graphql, actions }) => {
       }
     `).then(result => {
       result.data.allMarkdownRemark.edges.forEach(({ node }) => {
-        
         let template = "`./src/templates/blog-post.js`"; //fallback
         if (node.fields.isPeriodDescription){
           template = `./src/templates/period-description-page.js`
@@ -130,7 +132,6 @@ exports.createPages = ({ graphql, actions }) => {
         else if(node.fields.belongsToPeriod){
           template = "`./src/templates/blog-post.js`";
         }
-        
         if (node.fields.isSinglePageDocument) {
           createPage({
             path: node.fields.slug,
