@@ -6,17 +6,18 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
   
   if (node.internal.type === `MarkdownRemark`) {
     const slug = createFilePath({ node, getNode, basePath: `pages` });
-    // console.log("SLUG ",slug)
-    // console.log("SLUG1 ",node.fileAbsolutePath)
+      // console.log("SLUG1 ",node.fileAbsolutePath)
     
     const idx = node.fileAbsolutePath.indexOf("/pages")+"/pages".length;
     const relevantPath = node.fileAbsolutePath.substring(idx);
     const fileParts = relevantPath.split("/");
-    console.log("LAST",relevantPath)
     const isIndex = fileParts[fileParts.length-1]==="index.md";
     const folderName = fileParts[fileParts.length-2];
-    const parentFolder = fileParts[fileParts.length-3];
-    const deept = fileParts.length-2;
+  
+    const partsFromFullPath = node.fileAbsolutePath.split("/");
+    const parentFolder = fileParts.length >3 ? fileParts[fileParts.length-3] : null ;
+
+    const depth = fileParts.length-2;
     const parts = slug.split("/");
     //Always include the slug
     createNodeField({
@@ -50,9 +51,10 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
         value: shortTitle
       });
     }
+    console.log("Parent",parentFolder)
     createNodeField({node, name:"inFolder",value: folderName })
     createNodeField({node, name: `isIndex`,value: isIndex});
-    createNodeField({node, name: `depth`,value: deept});
+    createNodeField({node, name: `depth`,value: depth});
     createNodeField({node, name: `parentFolder`,value: parentFolder});
 
     if (parts.length > 4 && node.fileAbsolutePath.includes("/index.md")) {
@@ -119,7 +121,8 @@ exports.createPages = ({ graphql, actions }) => {
       }
     `).then(result => {
       result.data.allMarkdownRemark.edges.forEach(({ node }) => {
-        let template = "`./src/templates/blog-post.js`"; //fallback
+        
+        let template = `./src/templates/blog-post.js`; //fallback
         if (node.fields.isPeriodDescription){
           template = `./src/templates/period-description-page.js`
         }
@@ -130,7 +133,7 @@ exports.createPages = ({ graphql, actions }) => {
           template = `./src/templates/blog-post.js`
         }
         else if(node.fields.belongsToPeriod){
-          template = "`./src/templates/blog-post.js`";
+          template = `./src/templates/blog-post.js`;
         }
         if (node.fields.isSinglePageDocument) {
           createPage({

@@ -12,7 +12,6 @@ returns all links for a period given via the slug
 function periodLinks(nodes, slug) {
   const days = nodes
     .filter(e => {
-      console.log("XX->",e);
       const isIndex =
         e.fields.isSubPeriodDescription ||
         e.fields.isPeriodDescription;
@@ -102,7 +101,6 @@ function linksFacade() {
         return accumulator;
       }, {});
       for (let p in asMap) {
-        console.log("hhh",nodes)
         const pl = periodLinks(nodes, asMap[p].slugPart);
         asMap[p].subLinks = pl;
       }

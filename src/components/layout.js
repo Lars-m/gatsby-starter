@@ -1,27 +1,19 @@
 import React from "react";
 import Modal from "./Modal";
-//import logo from "./bitmap.png";
 import logo from "../../images/logo.png";
 import offline from "../../images/offline.svg";
 import { StaticQuery, Link, graphql } from "gatsby";
 
 import "../../images/css/font-awesome.css";
 import "../../style.css";
-import all from "../helpers/periodLinks";
-const { getLinksForAllPeriods, setCurrentPeriod, getLinksForCurrentPeriod } = all.linkFacade;
-
-function getPeriodfromSlug(slug) {
-  //We don't care about index.md files so a minimum of three "/" must be present
-  //A slug could be: "/period1/day2/"
-  return `/${slug.split("/")[1]}/`;
-}
+import selectedPages from "../helpers/pagesForMenu";
 
 class Container extends React.Component {
   constructor(props) {
     super(props);
     //necessary since first time it executes it's done by node and not in a browser
+    console.log("IN CONSTRUCTOR");
     this.state = { offline: false, showModal: false };
-
   }
 
   componentDidMount() {
@@ -51,75 +43,74 @@ class Container extends React.Component {
   closeModal = () => this.setState({ showModal: false });
   setOffline = () => this.setState({ offline: !navigator.onLine });
 
-  /* render(){
-    const data = this.props;
-    console.log(data.allMarkdownRemark.nodes)
-   // const linksForAll = getLinksForAllPeriods(data.allMarkdownRemark.nodes);
-    return <div>Hello World</div>
-  } */
+  onClick = pages => {
+    selectedPages.setPages(pages);
+  };
+
   render() {
-    //console.log("STATE", this.state);
     const data = this.props;
-   
-    console.log(data.allMarkdownRemark.nodes)
-    //const map = linksForAllPeriods(data.allMarkdownRemark.edges);
-    const linksForAll = getLinksForAllPeriods(data.allMarkdownRemark.nodes);
-    console.log("ALL",linksForAll)
-    const subLinks = getLinksForCurrentPeriod();
-    //console.log("SUBLINGS", subLinks)
-    const subLinksHTML = subLinks.map((n, index) => {
-      const slug = n.fields.slug;
-      //console.log("SLUG--->", slug);
+    const nodes = data.allMarkdownRemark.nodes;
+
+    const pageLinksLevelTop = nodes
+      .filter(n => n.fields.isIndex && n.fields.depth === 1)
+      .sort((a, b) =>
+        a.fields.shortTitle.toLowerCase() >= b.fields.shortTitle.toLowerCase()
+          ? 1
+          : -1
+      );
+
+    const plt = pageLinksLevelTop.map(l => {
+      const pages = nodes.filter(
+        n => {
+          const include = !n.fields.isIndex 
+                          && n.fields.inFolder === l.fields.inFolder 
+                          || l.fields.inFolder === n.fields.parentFolder && n.fields.isIndex;
+          return include;
+          
+        }
+      );
+      l.pages = pages;
+      return l;
+    });
+    //console.log(plt);
+
+    const subLinksHTML = selectedPages.getPages().map(n => {
       return (
-        <React.Fragment key={index}>
-          <Link key={n.id} to={slug} activeClassName="active">
-            <span id={getPeriodfromSlug(slug)}>
-              {n.frontmatter.date}
-            </span>
-          </Link>
-        </React.Fragment>
+        <Link key={n.id} to={n.fields.slug} activeClassName="active">
+          {n.fields.shortTitle}
+        </Link>
       );
     });
 
     const topLinks = data.site.siteMetadata.topMenu.map(l => {
       if (!(l.URL || l.route)) {
-        throw new Error("Either a URL or a route must be provided for a topMenu entry")
+        throw new Error(
+          "Either a URL or a route must be provided for a topMenu entry"
+        );
       }
-      return l.URL ?
-        (<a key={l.title} href={l.URL} target="_blank" rel="noopener noreferrer"> {l.title}</a>) :
-        (<Link key={l.title} to={l.route} target="_blank" activeClassName="active"> {l.title}</Link>)
-
-    })
-
-    let links = [];
-    for (let p in linksForAll) {
-      //console.log("SLUGPART",linksForAll[p].slugPart)
-      links.push((
-        <Link key={linksForAll[p].id} onClick={() => console.log("Cliecked")} to={linksForAll[p].slugPart} activeClassName="active">
-          <span id={linksForAll[p].slugPart}>{linksForAll[p].period}</span>
+      return l.URL ? (
+        <a key={l.title} href={l.URL} target="_blank" rel="noopener noreferrer">
+          {" "} {l.title}
+        </a>
+      ) : (
+        <Link key={l.title} to={l.route} target="_blank" activeClassName="active">
+          {" "}{l.title}
         </Link>
-      ))
-    }
-    return (
-      <div
-        //This is "hacky", but it gets the id from the inner span in a-tags
-        onClick={e => {
-          let tagName = e.target.tagName.toUpperCase();
-          //console.log("TagName", tagName, e.target.innerText, e.target.id);
-          if (
-            tagName === "A" &&
-            e.target.children[0] &&
-            e.target.children[0].tagName === "SPAN"
-          ) {
-            console.log("AAA", e.target.children[0].id)
-            setCurrentPeriod(e.target.children[0].id);
-          } else if (tagName === "SPAN") {
-            setCurrentPeriod(e.target.id);
-          } else {
-            setCurrentPeriod("-");
-          }
-        }}
+      );
+    });
+    let pageLinksLevel1 = plt.map(p => (
+      <Link
+        key={p.id}
+        to={p.fields.slug}
+        onClick={() => this.onClick(p.pages)}
+        activeClassName="active"
       >
+        {p.fields.shortTitle}
+      </Link>
+    ));
+
+    return (
+      <div>
         <div className="header">
           <div className="title">
             <img src={logo} alt="Logo" />
@@ -128,14 +119,12 @@ class Container extends React.Component {
               <p>{data.site.siteMetadata.title2}</p>
             </div>
           </div>
-          <div className="main-links">
-            {topLinks}
-          </div>
+          <div className="main-links">{topLinks}</div>
         </div>
 
-        <div className="content-frame" >
+        <div className="content-frame">
           <div className="period-links">
-            {links}
+            {pageLinksLevel1}
             {/* HACK to ensure icon is preloaded while online*/}
             <img style={{ width: 1 }} src={offline} alt="dummy" />{" "}
             {this.state.offline && (
@@ -154,14 +143,13 @@ class Container extends React.Component {
         </div>
       </div>
     );
-
   }
 }
 
 export default ({ children }) => (
   <StaticQuery
     query={query}
-    render={data => (<Container {...data} children={children} />)}
+    render={data => <Container {...data} children={children} />}
   />
 );
 
@@ -195,7 +183,9 @@ var query = graphql`
         title1
         title2
         topMenu {
-          title URL route
+          title
+          URL
+          route
         }
       }
     }

@@ -1,6 +1,6 @@
 ---
-period: "SUB-XXXX"
-periodTitle: "XXXXSUB123"
+shortTitle: "Week1"
+title: "Week 1"
 learningGoals: "https://docs.google.com/document/d/1svHB2Dp6aSfST5zaXUtpNyVy9EpO5Wpvts3_YSW934w/edit?usp=sharing"
 ---
 

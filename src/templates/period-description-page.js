@@ -33,7 +33,7 @@ export default ({ data }) => {
   const sorted = periodLinks(data.allMarkdownRemark.nodes, slug);
   //CHECK THIS
   periodInfoHtml = post.html;
-  periodTitle = post.frontmatter.periodTitle;
+  periodTitle = post.frontmatter.title;
   links = sorted.map((day, index) => {
     const dayInWeek = getDayInWeekFromDkDate(day.frontmatter.date);
     return (

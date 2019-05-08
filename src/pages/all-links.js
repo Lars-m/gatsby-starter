@@ -8,8 +8,7 @@ export const query = graphql`
   query {
     allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
       totalCount
-      edges {
-        node {
+        nodes {
           id
           rawMarkdownBody
           frontmatter {
@@ -22,7 +21,7 @@ export const query = graphql`
             belongsToPeriod
           }
         }
-      }
+      
     }
   }
 `;

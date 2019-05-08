@@ -7,12 +7,13 @@ import Layout from "../components/layout.js";
 export default function createLinkPage(startTag,endTag,title,useLineBreaks){
 
   return ({ data }) => {
+    
     let days = data.allMarkdownRemark.nodes.filter(
       ( node ) => node.fields.belongsToPeriod
     );
     //console.log(days.map(({node})=>node.frontmatter.date))
-    days = days.map(d => {
-      const node = d.node;
+    days = days.map(node => {
+      //const node = d.node;
       const dateForTitle = `${node.frontmatter.date}`;
       const rawMarkdownBody = node.rawMarkdownBody;
       const start =
