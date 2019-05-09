@@ -69,7 +69,7 @@ class Container extends React.Component {
           
         }
       );
-      l.pages = pages;
+      l.pages = pages;   
       return l;
     });
     //console.log(plt);
