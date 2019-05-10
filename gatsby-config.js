@@ -23,7 +23,8 @@ module.exports = {
         pathToConfigModule: `src/utils/typography`
       }
     },
-    
+    `gatsby-plugin-catch-links`,  //Allows navigation-links in md-files without the need for a page-refresh
+
     {
       resolve: `gatsby-transformer-remark`,
       options: {
@@ -53,6 +54,7 @@ module.exports = {
         ]
       }
     },
+    
     {
       resolve: `gatsby-plugin-manifest`,
       options: {

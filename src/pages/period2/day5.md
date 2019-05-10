@@ -16,8 +16,9 @@ pageintro: |
 ### Exercises
 <!--exercises_begin-->
 [Mini Project, part1](https://docs.google.com/document/d/1yjPzw7tskVoyw8vmWvvU1uc1fzu6Vnam3jEJkTTzDVw/edit?usp=sharing)
-<!--exercises_end-->
 
+<!--exercises_end-->
+[xxxx](/period2/exercises/ex1/)
 ### Slides
 [MongoDB Handling Relations](http://slides.mydemos.dk/noSQL2/mongo_modeling.html)
 
