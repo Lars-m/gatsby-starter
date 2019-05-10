@@ -1,13 +1,21 @@
 //import React from "react";
 import { graphql } from "gatsby";
-import createLinkPage from "../helpers/link_helper";
+import createLinkSection from "../helpers/linkCollector";
+import React from "react";
+import Layout from "../components/layout"
 
-export default createLinkPage(
-  "<!--readings_begin-->",
-  "<!--readings_end-->",
-  "All readings",
-  true
-);
+export default ({ data }) => {
+  console.log(data)
+  const links = createLinkSection(data,"<!--readings_begin-->","<!--readings_end-->", "All readings", true);
+  return (
+
+    <Layout>
+     
+       {links}
+       
+    </Layout>
+  )
+}
 
 export const query = graphql`
   query {
@@ -24,6 +32,7 @@ export const query = graphql`
         fields {
           slug
           belongsToPeriod
+          shortTitle
         }
       }
     }

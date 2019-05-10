@@ -17,7 +17,7 @@ export default function createLinkSection(
   //console.log(days.map(({node})=>node.frontmatter.date))
   days = days.map(node => {
     //const node = d.node;
-    const dateForTitle = `${node.frontmatter.date}`;
+    const dateForTitle = `${node.fields.shortTitle}`;
     const rawMarkdownBody = node.rawMarkdownBody;
     const start = rawMarkdownBody.indexOf(startTag) + startTag.length;
     const end = rawMarkdownBody.indexOf(endTag);
@@ -33,7 +33,7 @@ export default function createLinkSection(
 
     return {
       title: `${dateForTitle} - ${node.frontmatter.title}`,
-      date: getDateFromDkDate(node.frontmatter.date),
+      sortField: getDateFromDkDate(node.fields.shortTitle).toString().toLowerCase(),
       id: node.id,
       info: node.frontmatter.pageintro,
       slug: node.fields.slug,
@@ -42,7 +42,7 @@ export default function createLinkSection(
     };
   });
   days = days.filter(d => d.htmlLinks);
-  days = days.sort((a, b) => a.date.getTime() - b.date.getTime());
+  days = days.sort((a, b) => a.sortField - b.sortField);
   return (
     <div>
       <h2>{title}</h2>

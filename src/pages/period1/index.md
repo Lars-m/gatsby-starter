@@ -1,12 +1,8 @@
 ---
 shortTitle: "Flow1"
-title: "Flow 1"
-learningGoals: "https://docs.google.com/document/d/1bAbO2EheHi0F3VN76vawukiCL5hxEydSfuq9vo-Bbgk/edit?usp=sharing"
+title: "Flow 1 (three weeks)"
 ---
 
-### Basic JavaScript, es2016,17,Next, node.js, ESLint, TypeScript, Babel and WebPack
 
-*In this period we will refresh JavaScript as introduced previous semester and introduce the node.js platform. 
-We will focus on the newest versions of JavaScript (ES.next) and what it takes to use it, both on the server and on clients (Babel & WebPack).*
 
-  
+*In this period we will introduce GraphQL, a new API standard that provides a more efficient, powerful and flexible alternative to REST. It was developed, and open-sourced, by Facebook and is now maintained by a large community of companies and individuals from all over the world*

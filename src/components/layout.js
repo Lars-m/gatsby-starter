@@ -3,70 +3,19 @@ import Modal from "./Modal";
 import logo from "../../images/logo.png";
 import offline from "../../images/offline.svg";
 import { StaticQuery, Link, graphql } from "gatsby";
+import {getDateFromDkDate} from "../helpers/date_utils"
 
 import "../../images/css/font-awesome.css";
 import "../../style.css";
 import selectedPages from "../helpers/pagesForMenu";
 
-function getDateFromDkDate(date) {
-  if (date === null || !date.includes("-")) {
-    return date;
-  }
-  const dp = date.split("-");
-  return new Date(dp[2], dp[1] - 1, dp[0]).getTime();
-}
-
-function nodesPerLevel(nodes) {
-  let nodesPrLevel = {};
-  let level = 1;
-  
-  const maxLevel = nodes.reduce((acc, cur) => cur.fields.depth > acc ? cur.fields.depth : acc, 0)
-  //console.log("MAX",maxLevel)
-  for (let i = 0; i <= maxLevel; i++) {
-    let levelAsStr = "level" + level;
-    nodes.forEach(node => {
-      if (!nodesPrLevel[levelAsStr]) {
-        nodesPrLevel[levelAsStr] = [];
-      }
-      if (node.fields.depth === level) {
-        nodesPrLevel[levelAsStr].push(node)
-      }
-    })
-    level++;
-  }
-  return nodesPrLevel;
-}
-
-function hasChild(folder, node) {
-  return folder === node.fields.parentFolder && node.fields.isIndex;
-}
-
-
-function getPages(topLinks, allNodes, level) {
-  const maxLevel = allNodes.reduce((acc, cur) => cur.fields.depth > acc ? cur.fields.depth : acc, 0)
-  const depth = level || 1;
-  const nodes = allNodes.filter(n => n.fields.depth >= depth)
-  const plt = topLinks.map(l => {
-    const p = nodes.filter(n => {
-      const include =
-        !n.fields.isIndex
-        && n.fields.inFolder === l.fields.inFolder
-        ||  hasChild(l.fields.inFolder, n)
-      if (include) {
-        n.sortField = getDateFromDkDate(n.fields.shortTitle)
-      }
-      return include;
-    }
-    );
-    const sortedPages = p.sort((a, b) => a.sortField >= b.sortField ? 1 : -1);
-    l.pages = sortedPages;
-    if(depth < maxLevel){
-      getPages(l.pages,allNodes,depth+1)
-    }
-    return l;
-  });
-  return plt;
-}
+// function getDateFromDkDate(date) {
+//   if (date === null || !date.includes("-")) {
+//     return date;
+//   }
+//   const dp = date.split("-");
+//   return new Date(dp[2], dp[1] - 1, dp[0]).getTime();
+// }
 
 class Container extends React.Component {
   constructor(props) {
@@ -102,37 +51,61 @@ class Container extends React.Component {
   closeModal = () => this.setState({ showModal: false });
   setOffline = () => this.setState({ offline: !navigator.onLine });
 
-  onClick = pages => {
-    //selectedPages.setPages(pages,"LEVEL1");
-    selectedPages.Pages.LEVEL1 = pages;
+  hasChildWithIndex = (folder, node) => {
+    return folder === node.fields.parentFolder && node.fields.isIndex;
+  }
+  isMdFile = (node) => !node.fields.isIndex;
+  nodeIsInFolder = (node,folder) => node.fields.inFolder === folder
+  isMdFileAndInFolder = (node,folder) => this.isMdFile(node) && this.nodeIsInFolder(node,folder)
+  
+  setSubmenuForThisNode = (nodes,node, level) => {
+    const folder = node.fields.inFolder;
+    const isNotMdFile = node.fields.isIndex;
+    const menuEntries = nodes.filter(n =>{ 
+      if(n.fields.depth < level)
+       return false;
+      const isChildWithIndex = this.hasChildWithIndex(folder,n)
+      const include = this.isMdFileAndInFolder(n,folder)
+                      || (isNotMdFile && isChildWithIndex)
+      if(include){
+        n.sortField = getDateFromDkDate(n.fields.shortTitle).toString().toLowerCase();
+      }
+      return include;
+    }).sort((a, b) => a.sortField >= b.sortField ? 1 : -1);
+    selectedPages.setPages(menuEntries, level);
   };
 
   render() {
     const data = this.props;
     const nodes = data.allMarkdownRemark.nodes;
     //console.log("Levels",nodesPerLevel(nodes))
-    
-    const pageLinksLevelTop = nodes
+
+    const plt = nodes
       .filter(n => n.fields.isIndex && n.fields.depth === 1)
-      .sort((a, b) =>
-        a.fields.shortTitle.toLowerCase() >= b.fields.shortTitle.toLowerCase()
-          ? 1
-          : -1
-      );
+      .sort((a, b) => a.fields.shortTitle.toLowerCase() >= b.fields.shortTitle.toLowerCase() ? 1 : -1 );
 
-    const plt = getPages(pageLinksLevelTop, nodes)
-    console.log(plt);
-
+   
     const subLinksHTML = selectedPages.getPages("LEVEL1").map(n => {
       return (
-        <Link key={n.id} to={n.fields.slug} onClick={()=>selectedPages.setPages(n.pages,"LEVEL1")} activeClassName="active">
+        <Link
+          key={n.id}
+          to={n.fields.slug}
+          onClick={() => this.setSubmenuForThisNode(nodes,n, 2)}
+          activeClassName="active"
+          partiallyActive={true}
+        >
           {n.fields.shortTitle}
         </Link>
       );
     });
     const subLinksLevel2HTML = selectedPages.getPages("LEVEL2").map(n => {
       return (
-        <Link key={n.id} to={n.fields.slug} onClick={()=>console.log("L2")} activeClassName="active">
+        <Link
+          key={n.id}
+          to={n.fields.slug}
+          onClick={() => this.setSubmenuForThisNode(nodes,n, 2)}
+          activeClassName="active"
+        >
           {n.fields.shortTitle}
         </Link>
       );
@@ -146,20 +119,23 @@ class Container extends React.Component {
       }
       return l.URL ? (
         <a key={l.title} href={l.URL} target="_blank" rel="noopener noreferrer">
-          {" "} {l.title}
+          {" "}
+          {l.title}
         </a>
       ) : (
-          <Link key={l.title} to={l.route} target="_blank" activeClassName="active">
-            {" "}{l.title}
-          </Link>
-        );
+        <Link key={l.title} to={l.route} onClick={()=>selectedPages.resetSubMenus()}
+        target="_blank" activeClassName="active">
+          {" "}{l.title}
+        </Link>
+      );
     });
     let pageLinksLevel1 = plt.map(p => (
       <Link
         key={p.id}
         to={p.fields.slug}
-        onClick={() => this.onClick(p.pages,"LEVEL1")}
+        onClick={() => this.setSubmenuForThisNode(nodes,p, 1)}
         activeClassName="active"
+        partiallyActive={true}
       >
         {p.fields.shortTitle}
       </Link>

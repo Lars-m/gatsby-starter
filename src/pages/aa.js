@@ -11,8 +11,12 @@ export default ({ data }) => {
 
     <Layout>
       <h2>Hello World</h2>
+       <a href="http://dr.dk" target="_blank">DR</a>
+      <h2>CA's</h2>
+      <a href="http://dr.dk">DR</a><br/>
+      <a href="http://dr.dk">DR</a>
        {links}
-       {links}
+       
     </Layout>
   )
 }
@@ -26,12 +30,13 @@ export const query = graphql`
           rawMarkdownBody
           frontmatter {
             title
-            date
+            
             pageintro
           }
           fields {
             slug
             belongsToPeriod
+            shortTitle
           }
         }
       

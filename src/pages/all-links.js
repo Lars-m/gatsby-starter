@@ -1,8 +1,21 @@
 //import React from "react";
 import { graphql } from "gatsby";
-import createLinkPage from "../helpers/link_helper";
+import createLinkSection from "../helpers/linkCollector";
+import React from "react";
+import Layout from "../components/layout"
 
-export default createLinkPage("<!--exercises_begin-->","<!--exercises_end-->","Exercises-all",false);
+export default ({ data }) => {
+  console.log(data)
+  const links = createLinkSection(data,"<!--exercises_begin-->","<!--exercises_end-->","Exercises-all",false);
+  return (
+
+    <Layout>
+     
+       {links}
+       
+    </Layout>
+  )
+}
 
 export const query = graphql`
   query {
@@ -13,12 +26,13 @@ export const query = graphql`
           rawMarkdownBody
           frontmatter {
             title
-            date
+            
             pageintro
           }
           fields {
             slug
             belongsToPeriod
+            shortTitle
           }
         }
       
