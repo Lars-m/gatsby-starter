@@ -8,11 +8,70 @@ import "../../images/css/font-awesome.css";
 import "../../style.css";
 import selectedPages from "../helpers/pagesForMenu";
 
+function getDateFromDkDate(date) {
+  if (date === null || !date.includes("-")) {
+    return date;
+  }
+  const dp = date.split("-");
+  return new Date(dp[2], dp[1] - 1, dp[0]).getTime();
+}
+
+function nodesPerLevel(nodes) {
+  let nodesPrLevel = {};
+  let level = 1;
+  
+  const maxLevel = nodes.reduce((acc, cur) => cur.fields.depth > acc ? cur.fields.depth : acc, 0)
+  //console.log("MAX",maxLevel)
+  for (let i = 0; i <= maxLevel; i++) {
+    let levelAsStr = "level" + level;
+    nodes.forEach(node => {
+      if (!nodesPrLevel[levelAsStr]) {
+        nodesPrLevel[levelAsStr] = [];
+      }
+      if (node.fields.depth === level) {
+        nodesPrLevel[levelAsStr].push(node)
+      }
+    })
+    level++;
+  }
+  return nodesPrLevel;
+}
+
+function hasChild(folder, node) {
+  return folder === node.fields.parentFolder && node.fields.isIndex;
+}
+
+
+function getPages(topLinks, allNodes, level) {
+  const maxLevel = allNodes.reduce((acc, cur) => cur.fields.depth > acc ? cur.fields.depth : acc, 0)
+  const depth = level || 1;
+  const nodes = allNodes.filter(n => n.fields.depth >= depth)
+  const plt = topLinks.map(l => {
+    const p = nodes.filter(n => {
+      const include =
+        !n.fields.isIndex
+        && n.fields.inFolder === l.fields.inFolder
+        ||  hasChild(l.fields.inFolder, n)
+      if (include) {
+        n.sortField = getDateFromDkDate(n.fields.shortTitle)
+      }
+      return include;
+    }
+    );
+    const sortedPages = p.sort((a, b) => a.sortField >= b.sortField ? 1 : -1);
+    l.pages = sortedPages;
+    if(depth < maxLevel){
+      getPages(l.pages,allNodes,depth+1)
+    }
+    return l;
+  });
+  return plt;
+}
+
 class Container extends React.Component {
   constructor(props) {
     super(props);
     //necessary since first time it executes it's done by node and not in a browser
-    console.log("IN CONSTRUCTOR");
     this.state = { offline: false, showModal: false };
   }
 
@@ -48,9 +107,11 @@ class Container extends React.Component {
   };
 
   render() {
+    
     const data = this.props;
     const nodes = data.allMarkdownRemark.nodes;
-
+    //console.log("Levels",nodesPerLevel(nodes))
+    
     const pageLinksLevelTop = nodes
       .filter(n => n.fields.isIndex && n.fields.depth === 1)
       .sort((a, b) =>
@@ -59,24 +120,30 @@ class Container extends React.Component {
           : -1
       );
 
-    const plt = pageLinksLevelTop.map(l => {
-      const pages = nodes.filter(
-        n => {
-          const include = !n.fields.isIndex 
-                          && n.fields.inFolder === l.fields.inFolder 
-                          || l.fields.inFolder === n.fields.parentFolder && n.fields.isIndex;
-          return include;
-          
-        }
-      );
-      l.pages = pages;
-      return l;
-    });
-    //console.log(plt);
+    /*
+        const plt = pageLinksLevelTop.map(l => {
+          const p = nodes.filter(n => {
+              const include = 
+                !n.fields.isIndex
+                && n.fields.inFolder === l.fields.inFolder
+                || l.fields.inFolder === n.fields.parentFolder && n.fields.isIndex;
+              if (include) {
+                n.sortField = getDateFromDkDate(n.fields.shortTitle)
+              }
+              return include;
+            }
+          );
+          const sortedPages = p.sort((a, b) => a.sortField >= b.sortField ? 1 : -1);
+          l.pages = sortedPages;
+          return l;
+        });
+        */
+    const plt = getPages(pageLinksLevelTop, nodes)
+    console.log(plt);
 
     const subLinksHTML = selectedPages.getPages().map(n => {
       return (
-        <Link key={n.id} to={n.fields.slug} activeClassName="active">
+        <Link key={n.id} to={n.fields.slug} onClick={()=>console.log(n.pages)} activeClassName="active">
           {n.fields.shortTitle}
         </Link>
       );
@@ -93,10 +160,10 @@ class Container extends React.Component {
           {" "} {l.title}
         </a>
       ) : (
-        <Link key={l.title} to={l.route} target="_blank" activeClassName="active">
-          {" "}{l.title}
-        </Link>
-      );
+          <Link key={l.title} to={l.route} target="_blank" activeClassName="active">
+            {" "}{l.title}
+          </Link>
+        );
     });
     let pageLinksLevel1 = plt.map(p => (
       <Link
