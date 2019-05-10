@@ -103,11 +103,11 @@ class Container extends React.Component {
   setOffline = () => this.setState({ offline: !navigator.onLine });
 
   onClick = pages => {
-    selectedPages.setPages(pages);
+    //selectedPages.setPages(pages,"LEVEL1");
+    selectedPages.Pages.LEVEL1 = pages;
   };
 
   render() {
-    
     const data = this.props;
     const nodes = data.allMarkdownRemark.nodes;
     //console.log("Levels",nodesPerLevel(nodes))
@@ -120,30 +120,19 @@ class Container extends React.Component {
           : -1
       );
 
-    /*
-        const plt = pageLinksLevelTop.map(l => {
-          const p = nodes.filter(n => {
-              const include = 
-                !n.fields.isIndex
-                && n.fields.inFolder === l.fields.inFolder
-                || l.fields.inFolder === n.fields.parentFolder && n.fields.isIndex;
-              if (include) {
-                n.sortField = getDateFromDkDate(n.fields.shortTitle)
-              }
-              return include;
-            }
-          );
-          const sortedPages = p.sort((a, b) => a.sortField >= b.sortField ? 1 : -1);
-          l.pages = sortedPages;
-          return l;
-        });
-        */
     const plt = getPages(pageLinksLevelTop, nodes)
     console.log(plt);
 
-    const subLinksHTML = selectedPages.getPages().map(n => {
+    const subLinksHTML = selectedPages.getPages("LEVEL1").map(n => {
       return (
-        <Link key={n.id} to={n.fields.slug} onClick={()=>console.log(n.pages)} activeClassName="active">
+        <Link key={n.id} to={n.fields.slug} onClick={()=>selectedPages.setPages(n.pages,"LEVEL1")} activeClassName="active">
+          {n.fields.shortTitle}
+        </Link>
+      );
+    });
+    const subLinksLevel2HTML = selectedPages.getPages("LEVEL2").map(n => {
+      return (
+        <Link key={n.id} to={n.fields.slug} onClick={()=>console.log("L2")} activeClassName="active">
           {n.fields.shortTitle}
         </Link>
       );
@@ -169,7 +158,7 @@ class Container extends React.Component {
       <Link
         key={p.id}
         to={p.fields.slug}
-        onClick={() => this.onClick(p.pages)}
+        onClick={() => this.onClick(p.pages,"LEVEL1")}
         activeClassName="active"
       >
         {p.fields.shortTitle}
@@ -199,6 +188,7 @@ class Container extends React.Component {
             )}
           </div>
           <div className="link-days">{subLinksHTML}</div>
+          <div className="link-days">{subLinksLevel2HTML}</div>
           <Modal
             key={this.state.showModal}
             header="Off-line"
