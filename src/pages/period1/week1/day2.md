@@ -1,29 +1,30 @@
 ---
-period: "Flow-1"
-title: "Day-2, Vanilla JavaScript continued, Node, Babel "
-date: "31-01-2019"
-pageintro: |
-   Vanilla JavaScript Continued
-
-   NodeJs 
-
-   Modules and npm
-
-   Node’s Programming Model - the Event Loop
-
-   Node Streams
+title: "Day-2, an introduction to maven"
+date: "29-01-2019"
+pageintro: |  
+  Testing and Maven
 ---
 
 ### Before this lesson you should:
 
 <!--readings_begin-->
-* Skim (the whole “book”, it’s short and clear (30 min.)) [:book: Art of node](https://github.com/maxogden/art-of-node) 
-* [:tv: Introduction to Node.js (12 min.) ](https://www.youtube.com/watch?v=GJmFG4ffJZU) 
-* NO MATTER WHAT, you MUST WATCH this this fantastic video: [:tv: The Event Loop (26 min.)](https://www.youtube.com/watch?v=8aGhZQkoFbQ)
+- :book: [What is Maven (5 min.)](https://maven.apache.org/what-is-maven.html)
+- :book: [Maven in 5 min (expect to use at least 15 min. This is included in one of todays exercises)](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html)
+- :book: [Maven Getting Started Guide (15-20 min, bookmark for future reference)](https://maven.apache.org/guides/getting-started/index.html)
 <!--readings_end-->
 
-**Exercises:** 
+### Exercises
 <!--exercises_begin-->
-Complete (as much as your time allows) the exercises from learnyournode, introduced day-1.
+- [Getting started with Maven](https://docs.google.com/document/d/193QmOG5RIzCq1oTwMVKlCegWTT8lv7hmavqX6PxMLEM/edit?usp=sharing)
+- [Testing With Maven](https://docs.google.com/document/d/1tDz3rP4Li52nJSIqBgPo6PKLSpVtX56a-ygAHKdKNO0/edit?usp=sharing)
  <!--exercises_end-->
 
+#### Guidelines
+<!--guides_begin-->
+[Maven Guidelines for 3. semester](https://docs.google.com/document/d/1WhUccsbU7SzomqSKau30BcmfsvjBMCNDsWGohFFmyRI/edit)
+<!--guides_end-->
+
+#### Slides
+<!--slides_begin-->
+[Maven Slides](https://docs.google.com/presentation/d/1o2c2haU7zM9M9U6tRW7drgRMObmWx-9oiCe2_6mPmRk/edit?usp=sharing)
+<!--slides_end-->

@@ -1,30 +1,27 @@
 ---
-period: "Flow-1"
-title: "Introduction to the Full Stack JavaScript"
-date: "29-01-2019"
+title: "Semester intro and software testing"
+date: "28-01-2019"
 pageintro: | 
-   A short introduction to Full Stack JavaScript.
-
-   Vanilla JavaScript and es2015/16/Next.
-   
-   An introduction to Node.JS.
-   
-   Scope, Hoisting, Closures, this, Prototyping, etc
-   
-   Basic asynchronous programming with JavaScript.
+   This day will give you an overall introduction to this semester, and after that we will start with the topic Testing
 ---
 
 ### Before this lesson you should:
 
 <!--readings_begin-->
-- [:book: Node.js in Visual Studio Code (15 min.)](https://code.visualstudio.com/docs/nodejs/nodejs-tutorial) about Node.js and VS-code 
+
+- :book: [The test Pyramid (5-10 min)](https://martinfowler.com/bliki/TestPyramid.html)
+- :book: [Equivalence-partitioning and Boundary value analysis (15-20 min)](https://www.guru99.com/equivalence-partitioning-boundary-value-analysis.html)
+- :tv: [section-1 in this Lynda.com video (15 min)](https://www.lynda.com/Software-Development-tutorials/What-kind-testing/124398/137958-4.html?srchtrk=index%3a6%0alinktypeid%3a2%0aq%3aTDD%0apage%3a1%0as%3arelevance%0asa%3atrue%0aproducttypeid%3a2)
 
 <!--readings_end-->
 
 **Exercises:** 
 <!--exercises_begin-->
-[Day-1 Exercises](https://docs.google.com/document/d/1nGvH5rrd2yhnZqnKfvgS5hBQqwhbbSVyHG31MenA7-o)
- <!--exercises_end-->
+[Test Driven Desing with JUnit](https://docs.google.com/document/d/107xr-XJY9qPyYKZlWZW6usw5xuZm48pNrwKPBQ3F9WE/edit?usp=sharing)
+<!--exercises_end-->
 
 **Slides:** 
-[Node-introduction](http://slides.mydemos.dk/node1/NodeIntro.html#1)
+<!--slides_begin-->
+- [Semester Intro](https://docs.google.com/presentation/d/1ta1GsQeeXvno0MwWrWaKsSMHxrvfE37oViMuKzrhIxs/edit?usp=sharing)
+- [Software testing](https://docs.google.com/presentation/d/1_jtoNu4C6zcNU0RkDl_QBFFxRb4MnWZWaRGa3nO3mvg/edit?usp=sharing) Includes the required architecture for the semester project
+<!--slides_end-->

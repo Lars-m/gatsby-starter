@@ -2,7 +2,8 @@
 shortTitle: "Flow1"
 title: "Flow 1 (three weeks)"
 ---
+*In this period we will talk about maven, testing Continuous Integration (CI), build servers exemplified with Travis and devops.*
 
+*We will continue with the HTTP protocol, introduce HTTPS at a conceptual level, and you will learn to set up your droplets with your own domain name and an ssl-certificate.*
 
-
-*In this period we will introduce GraphQL, a new API standard that provides a more efficient, powerful and flexible alternative to REST. It was developed, and open-sourced, by Facebook and is now maintained by a large community of companies and individuals from all over the world*
+*Finally, we will introduce JavaScript, a language we will continue to use throughout the semester to build cool Single Page Applications*

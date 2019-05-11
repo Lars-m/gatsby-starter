@@ -1,34 +1,28 @@
 ---
-period: "Flow-1"
-title: "Day-3, Promises and async/await"
-date: "05-02-2019"
+title: "Day-3, Continuous Integration, Test Driven Design and devops"
+date: "30-01-2019"
+shortTitle: "DAY3"
 pageintro: |
-   es2015 Promises.
-   
-   es2016 Async/await.
-   
-   We will use these topics over and over throughout the semester.
+  Continuous Integration, Test Driven Design and devops
 ---
 
 ### Before this lesson you should:
 
 <!--readings_begin-->
-- [:tv: javaScript promises explained (13 min.)](https://www.youtube.com/watch?v=s6SH72uAn3Q) (simple, but introduces most concepts) 1+2
-- [:book: JavaScript Promises 101 (15 min.)](https://bitsofco.de/javascript-promises-101/). This is what I have used for todays presentation
-- [:book: 6 Reasons Why JavaScript’s Async/Await Blows Promises Away (20 min.)](https://hackernoon.com/6-reasons-why-javascripts-async-await-blows-promises-away-tutorial-c7ec10518dd9)
+- :book: [Continuous Integration (10 min)](https://www.thoughtworks.com/continuous-integration) This will form the basis for a class discussion, so read this BEFORE the lessen
+- :book: [What is DevOps (5-10 min](https://docs.microsoft.com/en-us/azure/devops/learn/what-is-devops)
+- :book: [Integration, -Delivery and -Deployment explained](https://www.devon.nl/en/continuous-integration-delivery-deployment/) Please note, there is not one right definition of these topics, this is the one we will use this semester and for the exam.
 <!--readings_end-->
 
 ### Exercises
 <!--exercises_begin-->
-- [Exercises - Promises (1+2)](https://docs.google.com/document/d/1jpqmitlHKeIcWzDdbe-jO281xFQiGywP3c2iKCDeffQ/edit?usp=sharing)
-- [Exercises - async-await (1+2+3)](https://docs.google.com/document/d/1uE22QlBGuWRWCB8PqR0fteRygiwfv4V0nZ5lhAq-r0k/edit?usp=sharing)
+- [Getting started with CI and Travis](https://docs.google.com/document/d/1XJrJEkhXUbOxJ-RzhBxkOkVlZYe6E3BjPu-o0AlaXnM/edit?usp=sharing)
+- [Testing and Deployment with Travis](https://docs.google.com/document/d/1lbDDwoPFQVkogopt1Wmn92FoLP6vUpCvt2TqTgDCMPM/edit?usp=sharing)
  <!--exercises_end-->
 
- ### Code samples for today lecture
- [Samples use during todays lecture](https://github.com/fulsstackJS-Fall2018/Period-1/tree/master/code)
-
 #### Slides
-[Promises and async/await](http://slides.mydemos.dk/promises/promises.html#1)
-
+<!--slides_begin-->
+[Test Driven Development and Continuous Integration](https://docs.google.com/presentation/d/1HlOOkZq_9TFnuSf8tHLMj95pI5dqe5jQJOT0hF0uwh8/edit?usp=sharing)
+<!--slides_end-->
 
 

@@ -24,9 +24,5 @@ function getDateFromDkDate(date) {
   return new Date(dp[2], dp[1] - 1, dp[0]).getTime();
 }
 
-// function getDateFromDkDate(date) {
-//   const dp = date.split("-");
-//   return new Date(dp[2], dp[1] - 1, dp[0]);
-// }
 
 export { getDateFromDkDate, getDayInWeekFromDkDate };

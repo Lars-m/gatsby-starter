@@ -35,18 +35,20 @@ export default ({ data }) => {
   periodInfoHtml = post.html;
   periodTitle = post.frontmatter.title;
   links = sorted.map((day, index) => {
-    const dayInWeek = getDayInWeekFromDkDate(day.frontmatter.date);
+    console.log("DAT",day)
+    const dayInWeek = day.fields.shortTitle;
+    try{
+      dayInWeek = getDayInWeekFromDkDate(day.fields.shortTitle);
+    }catch(err){}
     return (
       <tr key={index}>
         <td style={{ width: 100 }}>
           <Link
-            style={{ fontSize: "larger", textDecoration: "none" }}
+            style={{ textDecoration: "none" }}
             to={day.fields.slug}
           >
             <span id={day.fields.slug.split("/")[1]}>{dayInWeek}</span>
           </Link>
-          <br />
-          {day.frontmatter.date}
         </td>
         <td>{day.frontmatter.pageintro}</td>
       </tr>

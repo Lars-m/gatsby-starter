@@ -5,10 +5,6 @@ module.exports = {
   title2: `Spring 2019`,
   topMenu: [
     {
-      title:"Snippet",
-      URL: "https://docs.google.com/document/d/1JeVxni4WxM2Kli7Nu68uioooiq4PnYOEeb1ZzMyQvsk/edit?usp=sharing"
-    },
-    {
       title:"StudyPoints",
       URL: "https://studypoints.dk"
     },
@@ -17,15 +13,19 @@ module.exports = {
       route: "/full-schedule"
     },
     {
-      title:"Opgaver",
+      title:"Goals",
+      route: "/learning-goals"
+    },
+    {
+      title:"Exercises",
       route: "/all-links"
     },
     {
-      title:"Læs",
+      title:"Read",
       route: "/all-readings"
     },
     {
-      title:"Om",
+      title:"About",
       route: "/"
     },
   ]
