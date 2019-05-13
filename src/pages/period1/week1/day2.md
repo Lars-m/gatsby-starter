@@ -21,7 +21,7 @@ pageintro: |
 
 #### Guidelines
 <!--guides_begin-->
-[Maven Guidelines for 3. semester](https://docs.google.com/document/d/1WhUccsbU7SzomqSKau30BcmfsvjBMCNDsWGohFFmyRI/edit)
+- [Maven Guidelines for 3. semester](https://docs.google.com/document/d/1WhUccsbU7SzomqSKau30BcmfsvjBMCNDsWGohFFmyRI/edit)
 <!--guides_end-->
 
 #### Slides

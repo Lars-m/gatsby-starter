@@ -1,34 +1,30 @@
 ---
-period: "Flow-1"
-title: "Day-3, Promises and async/await"
-date: "05-02-2019"
-pageintro: |
-   es2015 Promises.
-   
-   es2016 Async/await.
-   
-   We will use these topics over and over throughout the semester.
+title: "The HTTP Protocol"
+date: "06-02-2019"
+  
 ---
 
 ### Before this lesson you should:
 
+*TODO Go through these links and add TIMING*
 <!--readings_begin-->
-- [:tv: javaScript promises explained (13 min.)](https://www.youtube.com/watch?v=s6SH72uAn3Q) (simple, but introduces most concepts) 1+2
-- [:book: JavaScript Promises 101 (15 min.)](https://bitsofco.de/javascript-promises-101/). This is what I have used for todays presentation
-- [:book: 6 Reasons Why JavaScript’s Async/Await Blows Promises Away (20 min.)](https://hackernoon.com/6-reasons-why-javascripts-async-await-blows-promises-away-tutorial-c7ec10518dd9)
+- [An overview of HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview)  
+- [HTTP headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers) Read the intro section, and just skim the loooong list of specific headers
+- [HTTP Request methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods) Read the detailed link for GET, PUT, POST and DELETE
+- [HTTP response status codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status) Just skim, but make sure you understand the ranges: 1xx, 2xx, 3xx, 4xx and 5 xx
+- [HTTP Cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies)
 <!--readings_end-->
 
 ### Exercises
 <!--exercises_begin-->
-- [Exercises - Promises (1+2)](https://docs.google.com/document/d/1jpqmitlHKeIcWzDdbe-jO281xFQiGywP3c2iKCDeffQ/edit?usp=sharing)
-- [Exercises - async-await (1+2+3)](https://docs.google.com/document/d/1uE22QlBGuWRWCB8PqR0fteRygiwfv4V0nZ5lhAq-r0k/edit?usp=sharing)
- <!--exercises_end-->
+[Network Exercises](/period1/week2/exercises/nw2_http)
+<!--exercises_end-->
 
- ### Code samples for today lecture
- [Samples use during todays lecture](https://github.com/fulsstackJS-Fall2018/Period-1/tree/master/code)
 
 #### Slides
-[Promises and async/await](http://slides.mydemos.dk/promises/promises.html#1)
+<!--slides_begin-->
+[The HTTP Protocol](https://docs.google.com/presentation/d/1moykrrcv19ZBBSo3OKpGFvroby0Fh6-PPTVmErNjTI4/edit?usp=sharing)
+<!--slides_end-->
 
 
 

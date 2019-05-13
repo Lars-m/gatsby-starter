@@ -1,31 +1,25 @@
 ---
-period: "Flow-1"
-title: "ES-next, Babel, Typescript and WebPack "
-date: "12-02-2019"
-pageintro: |
-  The evolution of JavaScript.
-  es2015, es2016 ... 
-  Webpack. 
-  Babel.
-  TypeScript.
+title: "Server Setup with domain name and certificate"
+date: "07-02-2019"
+   
 ---
 
 ### Before this lesson you should:
 
+TBD --> ADD TIMINGS BELOW
 <!--readings_begin-->
-- [:tv: ES Next Features That'll Make You Dance (25 min.)](https://www.youtube.com/watch?v=9yK4t2CuIHQ)
-- [:book: (Skim only) The TC39 Process (5 min.) ](https://tc39.github.io/process-document/)
-- [:book: TypeScript or Babel? (5. min)](https://www.stackchief.com/blog/TypeScript%20or%20Babel%3F)
-- [:book: Babel.io (skim only)](https://babeljs.io/)
-- [:book: Webpack (skim only)](https://webpack.js.org/concepts/)
+- [Wikipedia article about Reverse Proxy](https://en.wikipedia.org/wiki/Reverse_proxy)
+- [5 Common Server Setups For Your Web Application](https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application)
+- [What are certificates (video)](https://www.youtube.com/watch?v=LRMBZhdFjDI&t=25s)
+- [How does HTTPS actually work?](https://robertheaton.com/2014/03/27/how-does-https-actually-work/) Much like the privious link, but text instead of video. Pick one of the two)
 <!--readings_end-->
 
 ### Exercises: 
-<!--exercises_begin-->
-* [es2015 exercises](https://docs.google.com/document/d/1pkWn0_FoZuDJhGei4XlX4mx4zkZH7iuhtc6ecr5kelY/edit) , 
-* [Webpack exercises](https://docs.google.com/document/d/1PIMMeYPqN8Qzo4qsgjjuNAC0_15RIEVjD0DbBhcaP-0/edit?usp=sharing)
- <!--exercises_end-->
+<!--guides_begin-->
+[Digital Ocean Setup](https://docs.google.com/document/d/1pP1eLz1r-gxPhzzZcEyhQMKIiv_kxFkQKZu_XC8IjFg/edit?usp=sharing)
+<!--guides_end-->
+
 
 **Slides** 
 
-[Webpack and module bundling](http://slides.mydemos.dk/webpack/webpack.html#1)
+[XXX](#)

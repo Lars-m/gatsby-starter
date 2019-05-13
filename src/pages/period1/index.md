@@ -1,9 +1,6 @@
 ---
 shortTitle: "Flow1"
-title: "Flow 1 (three weeks)"
+title: "Maven, Test, CI, Network and HTTP + JavaScript Intro"
 ---
-*In this period we will talk about maven, testing Continuous Integration (CI), build servers exemplified with Travis and devops.*
 
-*We will continue with the HTTP protocol, introduce HTTPS at a conceptual level, and you will learn to set up your droplets with your own domain name and an ssl-certificate.*
-
-*Finally, we will introduce JavaScript, a language we will continue to use throughout the semester to build cool Single Page Applications*
+Add some details about flow 1

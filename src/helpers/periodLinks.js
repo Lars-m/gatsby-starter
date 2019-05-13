@@ -3,12 +3,11 @@ import { getDateFromDkDate } from "./date_utils.js";
 /*
 returns all links for a period given via the slug
 */
-function periodLinks(nodes, slug) {
+function periodLinks(nodes, folder) {
   const days = nodes
     .filter(node => {
-      const matchesSlug = node.fields.slug.indexOf(slug) >= 0;
-      //console.log("MATCH",matchesSlug && !isIndex,matchesSlug,!isIndex)
-      return matchesSlug && !node.fields.isIndex;
+      
+      return (node.fields.inFolder===folder && !node.fields.isIndex);
     })
     .map(e => {
       e.sortField = getDateFromDkDate(e.fields.shortTitle)
@@ -22,6 +21,25 @@ function periodLinks(nodes, slug) {
   //console.log("Sorted", sorted);
   return sorted;
 }
+// function periodLinks(nodes, slug) {
+//   const days = nodes
+//     .filter(node => {
+//       const matchesSlug = node.fields.slug.indexOf(slug) >= 0;
+//       //console.log("MATCH",matchesSlug && !isIndex,matchesSlug,!isIndex)
+//       return matchesSlug && !node.fields.isIndex;
+//     })
+//     .map(e => {
+//       e.sortField = getDateFromDkDate(e.fields.shortTitle)
+//         .toString()
+//         .toLowerCase();
+//       return e;
+//     });
+//   //const sorted = days.sort((a, b) => a.sortField - b.sortField);
+  
+//   const sorted = days.sort((a, b) => a.sortField >= b.sortField ? 1 : -1)
+//   //console.log("Sorted", sorted);
+//   return sorted;
+// }
 
 function linksFacade() {
   let asMap = null;

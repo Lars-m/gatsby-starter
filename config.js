@@ -1,7 +1,7 @@
 
 
 module.exports = {
-  title1: `TITLE`,
+  title1: `DAT 3. semester`,
   title2: `Spring 2019`,
   topMenu: [
     {
@@ -18,11 +18,15 @@ module.exports = {
     },
     {
       title:"Exercises",
-      route: "/all-links"
+      route: "/all-exercises"
     },
     {
       title:"Read",
       route: "/all-readings"
+    },
+    {
+      title:"Links",
+      route: "/links"
     },
     {
       title:"About",

@@ -1,5 +1,5 @@
 ---
-shortTitle: "Week1"
+shortTitle: "Week1 (maven/CI)"
 title: "Week 1, Intro, test, Maven, CI and Travis"
 ---
 

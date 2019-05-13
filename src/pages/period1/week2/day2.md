@@ -1,29 +1,29 @@
 ---
-period: "Flow-1"
-title: "Day-2, Vanilla JavaScript continued, Node, Babel "
-date: "31-01-2019"
-pageintro: |
-   Vanilla JavaScript Continued
-
-   NodeJs 
-
-   Modules and npm
-
-   Node’s Programming Model - the Event Loop
-
-   Node Streams
+title: "Networks and the TCP/IP Network Protocol Stack"
+date: "05-02-2019"
 ---
 
 ### Before this lesson you should:
 
 <!--readings_begin-->
-* Skim (the whole “book”, it’s short and clear (30 min.)) [:book: Art of node](https://github.com/maxogden/art-of-node) 
-* [:tv: Introduction to Node.js (12 min.) ](https://www.youtube.com/watch?v=GJmFG4ffJZU) 
-* NO MATTER WHAT, you MUST WATCH this this fantastic video: [:tv: The Event Loop (26 min.)](https://www.youtube.com/watch?v=8aGhZQkoFbQ)
+- [WHY OSI ?????? OSI - Open Systems Interconnection Model](https://en.wikipedia.org/wiki/OSI_model)
+- [IP addresses](https://en.wikipedia.org/wiki/IP_address)
+- [Ports](https://www.lifewire.com/port-numbers-on-computer-networks-817939)
+- [Well-Known TCP Port Numbers (skim only)](https://www.webopedia.com/quick_ref/portnumbers.asp)
+- [DNS](https://computer.howstuffworks.com/dns.htm)
+- [DHCP](https://kb.iu.edu/d/adov)
 <!--readings_end-->
 
 **Exercises:** 
 <!--exercises_begin-->
-Complete (as much as your time allows) the exercises from learnyournode, introduced day-1.
+[Exercises](/period1/week2/exercises/nw1_stack)
  <!--exercises_end-->
+
+<!--slides_begin-->
+[Network and HTTP](https://docs.google.com/presentation/d/1moykrrcv19ZBBSo3OKpGFvroby0Fh6-PPTVmErNjTI4/edit?usp=sharing)
+<!--slides_end-->
+
+
+At first, it would seem like there is an awful lot to read for today, but most of the links below are relatively short articles. You are free to use other references as long as it gives you the background to answer all questions in the first exercise "Understanding Basic Network Terms like IP, TCP/IP, DNS, DHCP and more"
+[![](media/osi.png)](https://www.studytonight.com/computer-networks/reference-models)
 

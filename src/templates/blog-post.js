@@ -92,7 +92,7 @@ export const query = graphql`
         inFolder
       }
       frontmatter {
-        periodTitle
+        
         title
         period
         date
@@ -106,7 +106,7 @@ export const query = graphql`
         frontmatter {
           title
           period
-          periodTitle
+        
           date
           pageintro
         }

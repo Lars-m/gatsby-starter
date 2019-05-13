@@ -2,6 +2,7 @@ import React from "react";
 import Modal from "./Modal";
 import logo from "../../images/logo.png";
 import offline from "../../images/offline.svg";
+//import logo from "../../images/logo.svg"
 import { StaticQuery, Link, graphql } from "gatsby";
 import {getDateFromDkDate} from "../helpers/date_utils"
 
@@ -192,7 +193,7 @@ var query = graphql`
       nodes {
         id
         frontmatter {
-          periodTitle
+          
           period
           date
         }

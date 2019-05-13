@@ -27,7 +27,6 @@ exports.sourceNodes = async ({ boundActionCreators }) => {
       row.goals = e.gsx$goals.$t;
       return row;
     });
-  console.log(goals);
  
   goals.forEach(async (row,idx) => {
     await createNode({
