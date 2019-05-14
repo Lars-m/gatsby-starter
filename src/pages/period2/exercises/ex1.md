@@ -6,3 +6,4 @@ date: "12-01-2019"
 ### CCCCC
 
 ![](/logo2.png)
+<img src="/logo2.png">
