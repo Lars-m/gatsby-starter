@@ -12,12 +12,17 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     const relevantPath = node.fileAbsolutePath.substring(idx);
     const fileParts = relevantPath.split("/");
     const isIndex = fileParts[fileParts.length-1]==="index.md";
+    
     const folderName = fileParts[fileParts.length-2];
+   /*  const fileNameStarts = relevantPath.lastIndexOf("/");
+    const folderName = relevantPath.substring(0,fileNameStarts+1); */
+    //console.log("FOLDEr",folder,relevantPath)
   
     const partsFromFullPath = node.fileAbsolutePath.split("/");
     const parentFolder = fileParts.length >3 ? fileParts[fileParts.length-3] : null ;
 
     const depth = fileParts.length-2;
+    //console.log("RelevantPath",fileParts[0],relevantPath,depth)
     const parts = slug.split("/");
     //Always include the slug
     createNodeField({
