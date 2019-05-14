@@ -1,8 +1,3 @@
----
-title: "Exercise - Network stack"
-date: "Network Stack"
----
-
 
 Understanding Basic Network Terms like: IP, TCP/IP, DNS, DHCP and more.
 

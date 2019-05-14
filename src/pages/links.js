@@ -19,7 +19,6 @@ export default class Links extends React.Component {
 
   render() {
     const data = this.props.data;
-    const showDay = this.state.showSlidesDay;
     return (
       <Layout>
         <h2>Guidelines used throughout the semester</h2>
@@ -33,7 +32,6 @@ export default class Links extends React.Component {
               <tbody>
                 {links.map(d => (
                   <tr key={d.id}>
-                    {/* <td>{d.title}</td> */}
                     <td dangerouslySetInnerHTML={{ __html: d.htmlLinks }} />
                   </tr>
                 ))}

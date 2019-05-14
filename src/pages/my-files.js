@@ -7,7 +7,7 @@ export default ({ data }) => {
   return (
     <Layout>
       <div>
-        <h1>My Site's Files</h1>
+        <h1>Files used on this Site</h1>
         <table>
           <thead>
             <tr>

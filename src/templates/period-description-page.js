@@ -1,7 +1,6 @@
 import React from "react";
 import { graphql, Link } from "gatsby";
 import Layout from "../components/layout";
-//import { node } from "prop-types";
 import all from "../helpers/periodLinks";
 const periodLinks = all.periodLinks;
 
@@ -28,7 +27,6 @@ function getDayInWeekFromDkDate(date) {
 
 export default ({ data }) => {
   const post = data.markdownRemark;
-  const slug = data.markdownRemark.fields.slug;
   let links = [];
   let periodInfoHtml = null;
   let periodTitle = null;
@@ -37,7 +35,6 @@ export default ({ data }) => {
   periodInfoHtml = post.html;
   periodTitle = post.frontmatter.title;
   links = sorted.map((day, index) => {
-    console.log("DAT2",day.fields.shortTitle)
     let dayInWeek = day.fields.shortTitle;
     try{
       dayInWeek = getDayInWeekFromDkDate(day.fields.shortTitle);

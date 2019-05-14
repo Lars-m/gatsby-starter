@@ -1,8 +1,11 @@
-
-
 module.exports = {
   title1: `DAT 3. semester`,
   title2: `Spring 2019`,
+  classes: [
+    { value: 'a', label: 'A-class' },
+    { value: 'b', label: 'B-class' },
+    { value: 'c', label: 'Bornholm' }
+  ],
   topMenu: [
     {
       title:"StudyPoints",

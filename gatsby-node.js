@@ -6,23 +6,29 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
   
   if (node.internal.type === `MarkdownRemark`) {
     const slug = createFilePath({ node, getNode, basePath: `pages` });
-      // console.log("SLUG1 ",node.fileAbsolutePath)
     
-    const idx = node.fileAbsolutePath.indexOf("/pages")+"/pages".length;
+    //const idx = node.fileAbsolutePath.indexOf("/pages")+"/pages".length;
+    const idx = node.fileAbsolutePath.indexOf("/pages")+"/pages/".length;
     const relevantPath = node.fileAbsolutePath.substring(idx);
     const fileParts = relevantPath.split("/");
     const isIndex = fileParts[fileParts.length-1]==="index.md";
+    const fileName = fileParts[fileParts.length-1];
     
-    const folderName = fileParts[fileParts.length-2];
-   /*  const fileNameStarts = relevantPath.lastIndexOf("/");
-    const folderName = relevantPath.substring(0,fileNameStarts+1); */
-    //console.log("FOLDEr",folder,relevantPath)
+    //const folderName = fileParts[fileParts.length-2];
+    const fileNameStarts = relevantPath.lastIndexOf("/");
+    const folderName = relevantPath.substring(0,fileNameStarts)//+1); 
+    
   
     const partsFromFullPath = node.fileAbsolutePath.split("/");
-    const parentFolder = fileParts.length >3 ? fileParts[fileParts.length-3] : null ;
+    //const parentFolder = fileParts.length >3 ? fileParts[fileParts.length-3] : null ;
+    const folderIndex = folderName.lastIndexOf("/");
+    const parentFolder = folderName.substring(0,folderIndex);
+    const depth = fileParts.length-1;
 
-    const depth = fileParts.length-2;
-    //console.log("RelevantPath",fileParts[0],relevantPath,depth)
+    console.log("FOLDER",folderName,`(${fileParts[fileParts.length-1]})`,`(${relevantPath})`)
+    console.log("Parent",parentFolder,`Depth: ${depth}`)
+    
+    
     const parts = slug.split("/");
     //Always include the slug
     createNodeField({
@@ -40,14 +46,21 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
      */
     
     if(!isIndex && !( node.frontmatter.date || node.frontmatter.shortTitle)){
-      throw new Error(`${node.fileAbsolutePath} must include a date and/or a shortTitle in its frontmatter`)
+      //throw new Error(`${node.fileAbsolutePath} must include a date and/or a shortTitle in its frontmatter`)
     }
+
+    const title = node.frontmatter.title ? node.frontmatter.title : `${fileName} (no title provide in md)`
+      
+  
     
     let shortTittle;
     if(isIndex){
        shortTitle = node.frontmatter.shortTitle ? node.frontmatter.shortTitle : folderName
     } else{
       shortTitle = node.frontmatter.date ? node.frontmatter.date : node.frontmatter.shortTitle;
+    }
+    if(shortTitle == null){
+      shortTitle = fileName;
     }
     if(shortTitle){
       createNodeField({
@@ -56,7 +69,9 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
         value: shortTitle
       });
     }
-    console.log("Parent",parentFolder)
+    
+    createNodeField({node, name:"title",value: title })
+    createNodeField({node, name:"fileName",value: fileName })
     createNodeField({node, name:"inFolder",value: folderName })
     createNodeField({node, name: `isIndex`,value: isIndex});
     createNodeField({node, name: `depth`,value: depth});

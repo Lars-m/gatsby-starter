@@ -15,22 +15,36 @@ export default ({ data }) => {
   const post = data.markdownRemark;
   const learningGoal = data.learningGoal;
   console.log("GOAL", learningGoal);
-  let title = post.frontmatter.title;
+  let title = post.fields.title;
   let periodInfoHtml = null;
   let periodTitle = null;
   //let belongsToPeriod = post.fields.belongsToPeriod;
-  let folder = post.fields.inFolder;
-  console.log("BELONGS", folder === post.fields.belongsToPeriod);
-  console.log("SLUG", post.fields.slug);
+  //let folder = post.fields.inFolder;
+  //console.log("BELONGS", folder === post.fields.belongsToPeriod);
+  //console.log("SLUG", post.fields.slug);
   const nodes = data.allMarkdownRemark.nodes;
-  console.log("TYPE", nodes);
-  nodes.forEach(e => {
-    if (e.fields.isIndex) {
-      periodTitle = e.frontmatter.title;
-      periodInfoHtml = e.html;
+  //console.log("TYPE", nodes);
+  let replacementHTML = null;
+  const selectedClass = localStorage.selectedClass
+    ? JSON.parse(localStorage.selectedClass).value
+    : null;
+  nodes.forEach(node => {
+    if (node.fields.isIndex) {
+      periodTitle = node.fields.title;
+      periodInfoHtml = node.html;
+    }
+    if (selectedClass) {
+      const searchString = `pages/${data.markdownRemark.fields.inFolder}/${selectedClass}/${
+        data.markdownRemark.fields.fileName.base
+      }`;
+      nodes.forEach(n => {
+        if (searchString === n.fields.fileName.relativePath) {
+          console.log("FOUND -------------> ", n.fields.fileName.relativePath);
+          replacementHTML = n.html;
+        }
+      });
     }
   });
-
   if (post.frontmatter.period && post.frontmatter.date) {
     title = `${title} (${post.frontmatter.date})`;
   }
@@ -66,8 +80,9 @@ export default ({ data }) => {
           dangerouslySetInnerHTML={{ __html: pageInfo }}
         />
         <div> {goals}</div>
-
-        <div dangerouslySetInnerHTML={{ __html: post.html }} />
+        <div
+          dangerouslySetInnerHTML={{ __html: replacementHTML || post.html }}
+        />
       </div>
     </Layout>
   );
@@ -90,9 +105,12 @@ export const query = graphql`
         belongsToPeriod
         shortTitle
         inFolder
+        title
+        fileName {
+          base
+        }
       }
       frontmatter {
-        
         title
         period
         date
@@ -106,7 +124,6 @@ export const query = graphql`
         frontmatter {
           title
           period
-        
           date
           pageintro
         }
@@ -114,6 +131,12 @@ export const query = graphql`
           slug
           belongsToPeriod
           isPeriodDescription
+          inFolder
+
+          fileName {
+            relativePath
+            base
+          }
         }
       }
     }

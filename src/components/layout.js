@@ -4,32 +4,35 @@ import logo from "../../images/logo.png";
 import offline from "../../images/offline.svg";
 //import logo from "../../images/logo.svg"
 import { StaticQuery, Link, graphql } from "gatsby";
-import {getDateFromDkDate} from "../helpers/date_utils"
+import { getDateFromDkDate } from "../helpers/date_utils";
+
+import { navigate } from "gatsby"
+import { Location } from '@reach/router';
 
 import "../../images/css/font-awesome.css";
 import "../../style.css";
 import selectedPages from "../helpers/pagesForMenu";
-
-// function getDateFromDkDate(date) {
-//   if (date === null || !date.includes("-")) {
-//     return date;
-//   }
-//   const dp = date.split("-");
-//   return new Date(dp[2], dp[1] - 1, dp[0]).getTime();
-// }
+import Select from "react-select";
 
 class Container extends React.Component {
   constructor(props) {
     super(props);
     //necessary since first time it executes it's done by node and not in a browser
-    this.state = { offline: false, showModal: false };
+    this.state = { offline: false, showModal: false, selectedClass: null };
   }
+ 
 
   componentDidMount() {
     window.addEventListener("click", this.clicked);
     window.addEventListener("online", this.setOffline);
     window.addEventListener("offline", this.setOffline);
     this.setOffline();
+    console.log("MOUNT")
+    if(localStorage.selectedClass){
+      console.log("MOUNTED",localStorage.selectedClass);
+      const selectedClass = JSON.parse(localStorage.selectedClass);
+      this.setState({selectedClass})
+    }
   }
   componentWillUnmount() {
     window.removeEventListener("online", this.setOffline);
@@ -52,27 +55,43 @@ class Container extends React.Component {
   closeModal = () => this.setState({ showModal: false });
   setOffline = () => this.setState({ offline: !navigator.onLine });
 
-  hasChildWithIndex = (folder, node) => {
-    return folder === node.fields.parentFolder && node.fields.isIndex;
+  handleClassChange = (selectedClass) => {
+    this.setState({ selectedClass });
+    localStorage.selectedClass = JSON.stringify(selectedClass)
+    //navigate(this.props.location.pathname);
+    console.log(`Option selected:`, selectedClass,this.props.location);
   }
-  isMdFile = (node) => !node.fields.isIndex;
-  nodeIsInFolder = (node,folder) => node.fields.inFolder === folder
-  isMdFileAndInFolder = (node,folder) => this.isMdFile(node) && this.nodeIsInFolder(node,folder)
-  
-  setSubmenuForThisNode = (nodes,node, level) => {
-    const folder = node.fields.inFolder;
-    const isNotMdFile = node.fields.isIndex;
-    const menuEntries = nodes.filter(n =>{ 
-      if(n.fields.depth < level)
-       return false;
-      const isChildWithIndex = this.hasChildWithIndex(folder,n)
-      const include = this.isMdFileAndInFolder(n,folder)
-                      || (isNotMdFile && isChildWithIndex)
-      if(include){
-        n.sortField = getDateFromDkDate(n.fields.shortTitle).toString().toLowerCase();
-      }
-      return include;
-    }).sort((a, b) => a.sortField >= b.sortField ? 1 : -1);
+
+  /*
+  Find all sub-entries for this node. Include:
+     - nodes that represents plain md-files in folder that holds the folder for the 
+       menu-entry(node) that was clicked
+     - index.md nodes for files that lives a level below the current node 
+      (must end as a clickable menu entry to navigate into that folder)
+  */
+  setSubmenuForThisNodeX = (nodes, menuNode, level) => {
+    if (!menuNode.fields.isIndex) {
+      return; //menu-entries made from a plain md-file cannot have parents
+    }
+    const folder = menuNode.fields.inFolder;
+
+    const menuEntries = nodes
+      .filter(node => {
+        if (node.fields.depth < level) {
+          return false;
+        }
+        const { parentFolder, isIndex, inFolder, shortTitle } = node.fields;
+        const isChildWithIndex = folder === parentFolder && isIndex;
+        const isMdFileAndInFolder = !isIndex && inFolder === folder;
+        const include = isMdFileAndInFolder || isChildWithIndex;
+        if (include) {
+          node.sortField = getDateFromDkDate(shortTitle)
+            .toString()
+            .toLowerCase();
+        }
+        return include;
+      })
+      .sort((a, b) => (a.sortField >= b.sortField ? 1 : -1));
     selectedPages.setPages(menuEntries, level);
   };
 
@@ -82,16 +101,20 @@ class Container extends React.Component {
     //console.log("Levels",nodesPerLevel(nodes))
 
     const plt = nodes
+      // .filter(n => n.fields.isIndex && n.fields.depth === 1)
       .filter(n => n.fields.isIndex && n.fields.depth === 1)
-      .sort((a, b) => a.fields.shortTitle.toLowerCase() >= b.fields.shortTitle.toLowerCase() ? 1 : -1 );
+      .sort((a, b) =>
+        a.fields.shortTitle.toLowerCase() >= b.fields.shortTitle.toLowerCase()
+          ? 1
+          : -1
+      );
 
-   
     const subLinksHTML = selectedPages.getPages("LEVEL1").map(n => {
       return (
         <Link
           key={n.id}
           to={n.fields.slug}
-          onClick={() => this.setSubmenuForThisNode(nodes,n, 2)}
+          onClick={() => this.setSubmenuForThisNodeX(nodes, n, 2)}
           activeClassName="active"
           partiallyActive={true}
         >
@@ -104,7 +127,7 @@ class Container extends React.Component {
         <Link
           key={n.id}
           to={n.fields.slug}
-          onClick={() => this.setSubmenuForThisNode(nodes,n, 2)}
+          onClick={() => this.setSubmenuForThisNodeX(nodes, n, 3)}
           activeClassName="active"
         >
           {n.fields.shortTitle}
@@ -124,9 +147,15 @@ class Container extends React.Component {
           {l.title}
         </a>
       ) : (
-        <Link key={l.title} to={l.route} onClick={()=>selectedPages.resetSubMenus()}
-        target="_blank" activeClassName="active">
-          {" "}{l.title}
+        <Link
+          key={l.title}
+          to={l.route}
+          onClick={() => selectedPages.resetSubMenus()}
+          target="_blank"
+          activeClassName="active"
+        >
+          {" "}
+          {l.title}
         </Link>
       );
     });
@@ -134,14 +163,16 @@ class Container extends React.Component {
       <Link
         key={p.id}
         to={p.fields.slug}
-        onClick={() => this.setSubmenuForThisNode(nodes,p, 1)}
+        //onClick={() => this.setSubmenuForThisNode(nodes,p, 1)}
+        onClick={() => this.setSubmenuForThisNodeX(nodes, p, 1)}
         activeClassName="active"
         partiallyActive={true}
       >
         {p.fields.shortTitle}
       </Link>
     ));
-
+    const {classes} = data.site.siteMetadata
+    const selected = this.state.selectedClass ? this.state.selectedClass.label : "";
     return (
       <div>
         <div className="header">
@@ -149,14 +180,25 @@ class Container extends React.Component {
             <img src={logo} alt="Logo" />
             <div style={{ alignSelf: "flex-start", marginLeft: "2em" }}>
               <h1>{data.site.siteMetadata.title1}</h1>
-              <p>{data.site.siteMetadata.title2}</p>
+              <p>{data.site.siteMetadata.title2} - {selected}</p>
             </div>
+            
           </div>
-          <div className="main-links">{topLinks}</div>
+          <div className="main-links">
+          
+            {topLinks}
+          </div>
         </div>
 
         <div className="content-frame">
           <div className="period-links">
+          <div style={{width:130}}>
+            <Select 
+              value={this.state.selectedClass}
+              onChange={this.handleClassChange}
+              options={classes}
+            />
+            </div>
             {pageLinksLevel1}
             {/* HACK to ensure icon is preloaded while online*/}
             <img style={{ width: 1 }} src={offline} alt="dummy" />{" "}
@@ -193,7 +235,6 @@ var query = graphql`
       nodes {
         id
         frontmatter {
-          
           period
           date
         }
@@ -216,6 +257,10 @@ var query = graphql`
       siteMetadata {
         title1
         title2
+        classes {
+          value
+          label
+        }
         topMenu {
           title
           URL

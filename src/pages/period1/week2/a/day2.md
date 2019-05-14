@@ -1,6 +1,7 @@
 ---
 title: "Networks and the TCP/IP Network Protocol Stack"
 date: "05-02-2019"
+author: "lam"
 ---
 
 ### Before this lesson you should:
@@ -13,10 +14,17 @@ date: "05-02-2019"
 - [DNS](https://computer.howstuffworks.com/dns.htm)
 - [DHCP](https://kb.iu.edu/d/adov)
 <!--readings_end-->
-
-<!--A_SKIP-->
+# ---------------------------------------------
+# THIS PAGE IS ONLY FOR THE A-CLASS
+# AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+# AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+# AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+# AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+# AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+# AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 
 ### Exercises
+
 <!--exercises_begin-->
 [Exercises](/period1/week2/exercises/nw1_stack)
  <!--exercises_end-->

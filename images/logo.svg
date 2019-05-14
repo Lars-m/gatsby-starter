@@ -15,7 +15,7 @@
    viewBox="0 0 744.09448819 1052.3622047"
    id="svg2"
    version="1.1"
-   inkscape:version="0.91 r13725"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
    inkscape:export-filename="C:\Users\plaul1\Dropbox\FAG\studyPointMobileApp\deployIcons\icon.png"
    inkscape:export-xdpi="189.74117"
    inkscape:export-ydpi="189.74117"
@@ -76,16 +76,16 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.9806825"
-     inkscape:cx="310.72815"
+     inkscape:cx="208.49066"
      inkscape:cy="717.39704"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1680"
-     inkscape:window-height="987"
-     inkscape:window-x="1192"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1" />
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-30920"
+     inkscape:window-y="-32000"
+     inkscape:window-maximized="0" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -94,7 +94,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -143,8 +143,8 @@
        x="154.28572"
        y="209.50507"
        ry="14.616929"
-       inkscape:export-xdpi="185.91356"
-       inkscape:export-ydpi="185.91356" />
+       inkscape:export-xdpi="35.576473"
+       inkscape:export-ydpi="35.576473" />
     <rect
        style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#f9b233;stroke-width:4.64145565;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
        id="rect4800-2"
@@ -153,8 +153,8 @@
        x="162.76929"
        y="218.52251"
        ry="13.568765"
-       inkscape:export-xdpi="185.91356"
-       inkscape:export-ydpi="185.91356" />
+       inkscape:export-xdpi="35.576473"
+       inkscape:export-ydpi="35.576473" />
     <path
        style="fill:#f9b233;stroke-width:2.25165915;stroke-miterlimit:4;stroke-dasharray:none"
        inkscape:connector-curvature="0"
@@ -162,7 +162,7 @@
        d="M 35,35 0,35 0,0 35,0 35,35 Z m -30.3,-4.7 25.7,0 0,-25.6 -25.7,0 0,25.6 z"
        id="path4896"
        transform="matrix(4.4411694,0,0,4.4411694,197.69222,252.64159)"
-       inkscape:export-xdpi="185.91356"
-       inkscape:export-ydpi="185.91356" />
+       inkscape:export-xdpi="35.576473"
+       inkscape:export-ydpi="35.576473" />
   </g>
 </svg>

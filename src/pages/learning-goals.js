@@ -1,6 +1,4 @@
-//import React from "react";
 import { graphql } from "gatsby";
-import createLinkSection from "../helpers/linkCollector";
 import React from "react";
 import Layout from "../components/layout";
 import makeUlForGoals from "../helpers/goalHelper";
