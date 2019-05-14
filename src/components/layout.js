@@ -27,7 +27,7 @@ class Container extends React.Component {
     window.addEventListener("online", this.setOffline);
     window.addEventListener("offline", this.setOffline);
     this.setOffline();
-    console.log("MOUNT")
+    console.log("MOUNT",this.props)
     if(localStorage.selectedClass){
       console.log("MOUNTED",localStorage.selectedClass);
       const selectedClass = JSON.parse(localStorage.selectedClass);
@@ -58,8 +58,8 @@ class Container extends React.Component {
   handleClassChange = (selectedClass) => {
     this.setState({ selectedClass });
     localStorage.selectedClass = JSON.stringify(selectedClass)
-    //navigate(this.props.location.pathname);
-    console.log(`Option selected:`, selectedClass,this.props.location);
+    navigate(window.location.pathname);
+    console.log(`Option selected:`, selectedClass,window.location.pathname);
   }
 
   /*
@@ -225,7 +225,7 @@ class Container extends React.Component {
 export default ({ children }) => (
   <StaticQuery
     query={query}
-    render={data => <Container {...data} children={children} />}
+    render={(data) => <Container {...data} children={children} />}
   />
 );
 
