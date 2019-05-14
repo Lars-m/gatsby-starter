@@ -1,18 +1,17 @@
-//import React from "react";
 import { graphql } from "gatsby";
 import LinkCollector from "../helpers/linkCollector";
 import React from "react";
-import Layout from "../components/layout"
+import Layout from "../components/layout";
 
 export default ({ data }) => {
   return (
     <Layout>
       <div>
-        <h2>All readings expected for this semester</h2>
+        <h2>All Exercises given this semester</h2>
         <LinkCollector
           data={data}
           tag="exercises"
-          useLineBreaks={true}
+          useLineBreaks={false}
           removeDuplicates={true}
           render={allLinks => (
             <table>
@@ -28,11 +27,9 @@ export default ({ data }) => {
           )}
         />
       </div>
-       
-       
     </Layout>
-  )
-}
+  );
+};
 
 export const query = graphql`
   query {
@@ -43,7 +40,6 @@ export const query = graphql`
         rawMarkdownBody
         frontmatter {
           title
-          date
           pageintro
         }
         fields {

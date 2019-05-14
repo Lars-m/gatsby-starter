@@ -1,7 +1,6 @@
 ---
-period: "Flow2"
-periodTitle: "Flow 2"
-learningGoals: "https://docs.google.com/document/d/15jI6ulIEg1531eMzhCJ3_TygZzXBkBYWQsY8457ABEE/edit?usp=sharing"
+shortTitle: "Flow2"
+title: "Flow 2 (four weeks)"
 ---
 
 ### Node.js+Express, Testing with JavaScript, NoSQL with MongoDB and Mongoose

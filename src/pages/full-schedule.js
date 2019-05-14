@@ -5,14 +5,25 @@ import { rhythm } from "../utils/typography"
 import Layout from "../components/layout"
 import { getDayInWeekFromDkDate, getDateFromDkDate } from "../helpers/date_utils"
 
+function getDateForTitleIfDate(shortTitle){
+  let dayInWeek = "";
+  console.log("Short",shortTitle)
+  try{
+     dayInWeek = ` (${getDayInWeekFromDkDate(shortTitle)})`
+     console.log(dayInWeek)
+  }catch(err){}
+  return shortTitle + dayInWeek
+}
 export default ({ data }) => {
   let days = data.allMarkdownRemark.edges.filter(({ node }) => node.fields.belongsToPeriod);
   days = days.map(d=>{
     const node = d.node;    
-    const dateForTitle = `${node.frontmatter.date} (${getDayInWeekFromDkDate(node.frontmatter.date)})`
+    //const dateForTitle = `${node.frontmatter.date} (${getDayInWeekFromDkDate(node.frontmatter.date)})`
+    const dateForTitle = getDateForTitleIfDate(node.fields.shortTitle);
     return {
       title: `${dateForTitle} - ${node.frontmatter.title}`,
-      date: getDateFromDkDate(node.frontmatter.date),
+      sortField: getDateFromDkDate(node.fields.shortTitle).toString().toLowerCase(),
+                 
       id: node.id,
       info: node.frontmatter.pageintro,
       slug: node.fields.slug,
@@ -20,7 +31,7 @@ export default ({ data }) => {
       period: node.frontmatter.period
     }
   })
-  days = days.sort((a, b) => a.date.getTime() - b.date.getTime() );
+  days = days.sort((a, b) => a.sortField - b.sortField );
   
   const daysAsLinks = days.map(( day ) => {
     let newPeriod = null;
@@ -80,13 +91,13 @@ export const query = graphql`
           id
           frontmatter {
             title
-            date
             pageintro
             period
           }
           fields {
             slug
             belongsToPeriod
+            shortTitle
           }
           excerpt
         }

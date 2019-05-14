@@ -114,6 +114,7 @@ exports.createPages = ({ graphql, actions }) => {
                 isPeriodDescription
                 isSubPeriodDescription
                 belongsToPeriod
+                shortTitle
               }
             }
           }
@@ -151,7 +152,8 @@ exports.createPages = ({ graphql, actions }) => {
             path: node.fields.slug,
             component: path.resolve(template),
             context: {// Data passed to context is available in page queries as GraphQL variables.
-              slug: node.fields.slug,      
+              slug: node.fields.slug,   
+              shortTitle: node.fields.shortTitle,
             }
           });
         } 

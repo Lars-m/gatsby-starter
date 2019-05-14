@@ -3,7 +3,6 @@ import { graphql, Link } from "gatsby";
 import Layout from "../components/layout";
 //import { node } from "prop-types";
 import all from "../helpers/periodLinks";
-import goals from "../../images/goals.png";
 const periodLinks = all.periodLinks;
 
 function getDayInWeekFromDkDate(date) {
@@ -12,6 +11,9 @@ function getDayInWeekFromDkDate(date) {
   }
   const dp = date.split("-");
   const dayInWeek = new Date(dp[2], dp[1] - 1, dp[0]).getDay();
+  if(NaN(dayInWeek)){
+    return date;
+  }
   const days = [
     "Sunday",
     "Monday",
@@ -30,25 +32,27 @@ export default ({ data }) => {
   let links = [];
   let periodInfoHtml = null;
   let periodTitle = null;
-  const sorted = periodLinks(data.allMarkdownRemark.nodes, slug);
+  const sorted = periodLinks(data.allMarkdownRemark.nodes, data.markdownRemark.fields.inFolder);
   //CHECK THIS
   periodInfoHtml = post.html;
   periodTitle = post.frontmatter.title;
   links = sorted.map((day, index) => {
-    const dayInWeek = getDayInWeekFromDkDate(day.frontmatter.date);
+    console.log("DAT2",day.fields.shortTitle)
+    let dayInWeek = day.fields.shortTitle;
+    try{
+      dayInWeek = getDayInWeekFromDkDate(day.fields.shortTitle);
+    }catch(err){} 
     return (
       <tr key={index}>
-        <td style={{ width: 100 }}>
+        <td style={{ width: 120 }}>
           <Link
-            style={{ fontSize: "larger", textDecoration: "none" }}
+            style={{ textDecoration: "none" }}
             to={day.fields.slug}
           >
             <span id={day.fields.slug.split("/")[1]}>{dayInWeek}</span>
           </Link>
-          <br />
-          {day.frontmatter.date}
         </td>
-        <td>{day.frontmatter.pageintro}</td>
+        <td>{day.frontmatter.pageintro || day.frontmatter.title}</td>
       </tr>
     );
   });
@@ -68,14 +72,7 @@ export default ({ data }) => {
         >
           <h1>{periodTitle}</h1>
           <div dangerouslySetInnerHTML={{ __html: periodInfoHtml }} />
-          {/* <a href={post.frontmatter.learningGoals}>
-            Learning Goals-{periodTitle}
-          </a> */}
-         {post.frontmatter.learningGoals && (<a href={post.frontmatter.learningGoals} target="_blank" rel="noopener noreferrer">
-            <img style={{width:75,float:"left"}} src={goals} alt="Learning Goals-{periodTitle}" />
-            <p style={{color:"wheat"}}>Learning Goals-{periodTitle}</p>
-         </a>)}
-         {!post.frontmatter.learningGoals && (<br/>)}
+         <br/>
         </div>
         {links.length > 0 && (
           <table>
@@ -94,16 +91,15 @@ export const query = graphql`
       fields {
         slug
         isSubPeriodDescription
-        isPeriodDescription
+        inFolder
+        isIndex
       }
       frontmatter {
-        periodTitle
         title
         period
         date
         pageintro
         headertext
-        learningGoals
       }
     }
     allMarkdownRemark {
@@ -112,10 +108,8 @@ export const query = graphql`
           frontmatter {
             title
             period
-            periodTitle
             date
             pageintro
-            learningGoals
           }
           fields {
             slug

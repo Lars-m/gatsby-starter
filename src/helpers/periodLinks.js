@@ -1,45 +1,53 @@
-function getDateFromDkDate(date) {
-  if (date === null || !date.includes("-")) {
-    throw new Error("No date provided: "+date);
-  }
-  const dp = date.split("-");
-  return new Date(dp[2], dp[1] - 1, dp[0]);
-}
+import { getDateFromDkDate } from "./date_utils.js";
 
 /*
 returns all links for a period given via the slug
 */
-function periodLinks(nodes, slug) {
+function periodLinks(nodes, folder) {
   const days = nodes
-    .filter(e => {
-      const isIndex =
-        e.fields.isSubPeriodDescription ||
-        e.fields.isPeriodDescription;
-      const matchesSlug = e.fields.slug.indexOf(slug) >= 0;
-      //console.log("MATCH",matchesSlug && !isIndex,matchesSlug,!isIndex)
-      return matchesSlug && !isIndex;
+    .filter(node => {
+      
+      return (node.fields.inFolder===folder && !node.fields.isIndex);
     })
     .map(e => {
-      if(!e.frontmatter.date)
-      console.log("DATE",e.frontmatter)
-      e.dateFromStr = getDateFromDkDate(e.frontmatter.date);
+      e.sortField = getDateFromDkDate(e.fields.shortTitle)
+        .toString()
+        .toLowerCase();
       return e;
     });
-  //console.log("DAYS", days);
-  const sorted = days.sort(
-    (a, b) => a.dateFromStr.getTime() - b.dateFromStr.getTime()
-  );
+  //const sorted = days.sort((a, b) => a.sortField - b.sortField);
+  
+  const sorted = days.sort((a, b) => a.sortField >= b.sortField ? 1 : -1)
   //console.log("Sorted", sorted);
   return sorted;
 }
+// function periodLinks(nodes, slug) {
+//   const days = nodes
+//     .filter(node => {
+//       const matchesSlug = node.fields.slug.indexOf(slug) >= 0;
+//       //console.log("MATCH",matchesSlug && !isIndex,matchesSlug,!isIndex)
+//       return matchesSlug && !node.fields.isIndex;
+//     })
+//     .map(e => {
+//       e.sortField = getDateFromDkDate(e.fields.shortTitle)
+//         .toString()
+//         .toLowerCase();
+//       return e;
+//     });
+//   //const sorted = days.sort((a, b) => a.sortField - b.sortField);
+  
+//   const sorted = days.sort((a, b) => a.sortField >= b.sortField ? 1 : -1)
+//   //console.log("Sorted", sorted);
+//   return sorted;
+// }
 
 function linksFacade() {
   let asMap = null;
   let currentPeriod = "";
   return {
     setCurrentPeriod: current => {
-      console.log("CURRENT",current)
-      currentPeriod = current
+      console.log("CURRENT", current);
+      currentPeriod = current;
     },
     getLinksForCurrentPeriod: () => {
       if (asMap[currentPeriod]) {
@@ -48,7 +56,6 @@ function linksFacade() {
       return [];
     },
     getLinksForAllPeriods: nodes => {
-     
       if (asMap !== null) {
         //console.log("CACHED")
         return asMap;
@@ -56,7 +63,6 @@ function linksFacade() {
       const periods = nodes
         .filter(e => e.fields.isPeriodDescription)
         .map(e => {
-         
           const slugPart = e.fields.slug;
           const id = e.id;
           const period = e.frontmatter.period;
@@ -111,6 +117,6 @@ function linksFacade() {
 }
 const linkFacade = linksFacade();
 export default {
-  linkFacade: linkFacade,
+  //linkFacade: linkFacade,
   periodLinks: periodLinks
 };
