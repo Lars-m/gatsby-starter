@@ -10,7 +10,6 @@ import remarkHtml from "remark-html";
 
 export default ({ data }) => {
   const post = data.markdownRemark;
-
   const title = post.frontmatter.title;
   const pageInfo = remark()
     .use(recommended)
@@ -30,7 +29,8 @@ export default ({ data }) => {
           }}
         >
           <h1>{title}</h1>
-          <div dangerouslySetInnerHTML={{ __html: pageInfo }} />
+          {/* <div>{post.frontmatter.headertext}</div> */}
+          { <div dangerouslySetInnerHTML={{ __html: pageInfo }} /> }
         </div>
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
       </div>
@@ -46,7 +46,6 @@ export const query = graphql`
         slug
       }
       frontmatter {
-        
         title
         period
         date

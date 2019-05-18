@@ -114,23 +114,29 @@ export const query = graphql`
         goals
       }
     }
-
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMarkdownRemark {
       totalCount
       nodes {
         id
         rawMarkdownBody
         frontmatter {
           title
-
           pageintro
         }
         fields {
-          slug
-          belongsToPeriod
+          slug          
+          title
           shortTitle
+          depth
+          inFolder
+          title
+          fileName {
+            relativePath
+            base
+          }
         }
       }
     }
+   
   }
 `;

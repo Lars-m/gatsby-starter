@@ -43,9 +43,16 @@ export const query = graphql`
           pageintro
         }
         fields {
-          slug
-          belongsToPeriod
+          slug          
+          title
           shortTitle
+          depth
+          inFolder
+          title
+          fileName {
+            relativePath
+            base
+          }
         }
       }
     }

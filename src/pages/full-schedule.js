@@ -27,7 +27,6 @@ export default ({ data }) => {
       id: node.id,
       info: node.frontmatter.pageintro,
       slug: node.fields.slug,
-      //period: node.fields.belongsToPeriod
       period: node.frontmatter.period
     }
   })
@@ -96,7 +95,6 @@ export const query = graphql`
           }
           fields {
             slug
-            belongsToPeriod
             shortTitle
           }
           excerpt

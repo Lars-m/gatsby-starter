@@ -21,6 +21,7 @@ date: "05-02-2019"
 [Exercises](/period1/week2/exercises/nw1_stack)
  <!--exercises_end-->
 
+### Slides
 <!--slides_begin-->
 [Network and HTTP](https://docs.google.com/presentation/d/1moykrrcv19ZBBSo3OKpGFvroby0Fh6-PPTVmErNjTI4/edit?usp=sharing)
 <!--slides_end-->

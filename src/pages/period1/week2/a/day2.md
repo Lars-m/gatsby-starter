@@ -14,6 +14,7 @@ author: "lam"
 - [DNS](https://computer.howstuffworks.com/dns.htm)
 - [DHCP](https://kb.iu.edu/d/adov)
 <!--readings_end-->
+
 # ---------------------------------------------
 # THIS PAGE IS ONLY FOR THE A-CLASS
 # AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -26,11 +27,15 @@ author: "lam"
 ### Exercises
 
 <!--exercises_begin-->
-[Exercises](/period1/week2/exercises/nw1_stack)
+- [Exercises1 (a)](/period1/week2/exercises/nw1_stack)
+- [Exercises2 (a)](https://dr.dk)
+- [Exercises3 (a)](https://studypoints.dk)
  <!--exercises_end-->
 
+### Slides
 <!--slides_begin-->
-[Network and HTTP](https://docs.google.com/presentation/d/1moykrrcv19ZBBSo3OKpGFvroby0Fh6-PPTVmErNjTI4/edit?usp=sharing)
+- [Network and HTTP (a)](https://docs.google.com/presentation/d/1moykrrcv19ZBBSo3OKpGFvroby0Fh6-PPTVmErNjTI4/edit?usp=sharing)
+- [REACT (a)](http://sem3slides.mydemos.dk/react1/react1.html#1)
 <!--slides_end-->
 
 

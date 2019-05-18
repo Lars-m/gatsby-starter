@@ -86,8 +86,7 @@ export const query = graphql`
     markdownRemark(fields: { slug: { eq: $slug } }) {
       html
       fields {
-        slug
-        isSubPeriodDescription
+        slug 
         inFolder
         isIndex
       }
@@ -114,10 +113,7 @@ export const query = graphql`
             isIndex
             depth
             isSinglePageDocument
-            isPeriodDescription
-            isSubPeriodDescription
             shortTitle
-            belongsToPeriod
             parentFolder
           }
         }

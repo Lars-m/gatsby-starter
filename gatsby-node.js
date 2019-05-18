@@ -25,8 +25,8 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     const parentFolder = folderName.substring(0,folderIndex);
     const depth = fileParts.length-1;
 
-    console.log("FOLDER",folderName,`(${fileParts[fileParts.length-1]})`,`(${relevantPath})`)
-    console.log("Parent",parentFolder,`Depth: ${depth}`)
+    //console.log("FOLDER",folderName,`(${fileParts[fileParts.length-1]})`,`(${relevantPath})`)
+   // console.log("Parent",parentFolder,`Depth: ${depth}`)
     
     
     const parts = slug.split("/");
@@ -51,15 +51,13 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 
     const title = node.frontmatter.title ? node.frontmatter.title : `${fileName} (no title provide in md)`
       
-  
-    
     let shortTittle;
     if(isIndex){
        shortTitle = node.frontmatter.shortTitle ? node.frontmatter.shortTitle : folderName
     } else{
       shortTitle = node.frontmatter.date ? node.frontmatter.date : node.frontmatter.shortTitle;
     }
-    if(shortTitle == null){
+    if(!shortTitle){
       shortTitle = fileName;
     }
     if(shortTitle){
@@ -69,47 +67,25 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
         value: shortTitle
       });
     }
+
+    if (node.frontmatter.isSP) {
+      createNodeField({
+        node,
+        name: `isSP`,
+        value: true
+      });
+    }
     
-    createNodeField({node, name:"title",value: title })
-    createNodeField({node, name:"fileName",value: fileName })
-    createNodeField({node, name:"inFolder",value: folderName })
-    createNodeField({node, name: `isIndex`,value: isIndex});
-    createNodeField({node, name: `depth`,value: depth});
-    createNodeField({node, name: `parentFolder`,value: parentFolder});
+    createNodeField({node, name: "title",value: title })
+    createNodeField({node, name: "fileName",value: fileName })
+    createNodeField({node, name: "inFolder",value: folderName })
+    createNodeField({node, name: "isIndex",value: isIndex});
+    createNodeField({node, name: "depth",value: depth});
+    createNodeField({node, name: "parentFolder",value: parentFolder});
 
     if (parts.length > 4 && node.fileAbsolutePath.includes("/index.md")) {
       throw new Error("Periods can only have sub-periods one level down")
     }
-    if (parts.length === 3 && node.fileAbsolutePath.includes("/index.md")) {
-      console.log("isPeriodDescription",slug)
-      createNodeField({
-        node,
-        name: `isPeriodDescription`,
-        value: parts[1]
-      });
-      
-    }
-
-    if (parts.length === 4 && node.fileAbsolutePath.includes("/index.md")) {
-      console.log("isSubPeriodDescription",slug)
-      return createNodeField({
-        node,
-        name: `isSubPeriodDescription`,
-        value: parts[2],
-        parent: parts[1]
-      });
-    }
-
-    if (parts.length > 3) {
-
-      createNodeField({
-        node,
-        name: `belongsToPeriod`,
-        value: parts[1]
-      });
-      return 
-    }
-
     if (node.frontmatter.headertext) {
       createNodeField({
         node,
@@ -130,11 +106,10 @@ exports.createPages = ({ graphql, actions }) => {
             node {
               fields {
                 slug
-                isSinglePageDocument
-                isPeriodDescription
-                isSubPeriodDescription
-                belongsToPeriod
+                isSinglePageDocument                
                 shortTitle
+                isIndex
+                isSP
               }
             }
           }
@@ -142,21 +117,30 @@ exports.createPages = ({ graphql, actions }) => {
       }
     `).then(result => {
       result.data.allMarkdownRemark.edges.forEach(({ node }) => {
-        
-        let template = `./src/templates/blog-post.js`; //fallback
-        if (node.fields.isPeriodDescription){
-          template = `./src/templates/period-description-page.js`
-        }
-        else if (node.fields.isSubPeriodDescription){
-          template = `./src/templates/period-description-page.js`
-        }
-        else if (node.fields.belongsToPeriod){
-          template = `./src/templates/blog-post.js`
-        }
-        else if(node.fields.belongsToPeriod){
-          template = `./src/templates/blog-post.js`;
-        }
-        if (node.fields.isSinglePageDocument) {
+        let template = `./src/templates/blog-post.js`; //fallback        
+        if (node.fields.isIndex && !node.fields.isSinglePageDocument){
+            //template = `./src/templates/period-description-page.js`
+            createPage({
+              path: node.fields.slug,
+              component: path.resolve(`./src/templates/period-description-page.js`),
+              context: {// Data passed to context is available in page queries as GraphQL variables.
+                slug: node.fields.slug,   
+                shortTitle: node.fields.shortTitle,
+              }
+            });
+        } 
+        else if (node.fields.isSP){
+          //template = `./src/templates/period-description-page.js`
+          createPage({
+            path: node.fields.slug,
+            component: path.resolve(`./src/templates/studypoint-friday-page.js`),
+            context: {// Data passed to context is available in page queries as GraphQL variables.
+              slug: node.fields.slug,   
+              shortTitle: node.fields.shortTitle,
+            }
+          });
+      } 
+        else if (node.fields.isSinglePageDocument) {         
           createPage({
             path: node.fields.slug,
             component: path.resolve(`./src/templates/single-page.js`),
@@ -167,7 +151,7 @@ exports.createPages = ({ graphql, actions }) => {
             }
           });
         } 
-        else  {
+        else  {        
           createPage({
             path: node.fields.slug,
             component: path.resolve(template),

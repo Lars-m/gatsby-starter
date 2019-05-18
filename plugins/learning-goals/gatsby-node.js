@@ -9,8 +9,8 @@ https://www.wildsmithstudio.com/blog/using-remote-resources-with-gatsby/
 const API_URI =
   "https://spreadsheets.google.com/feeds/list/1gNWaa-7dJ9rU7jkcQoWbx1MNKOU3MwJMgzcdJ_J2wI8/od6/public/values?alt=json";
 
-exports.sourceNodes = async ({ boundActionCreators }) => {
-  const { createNode } = boundActionCreators;
+exports.sourceNodes = async ({ actions }) => {
+  const { createNode } = actions;
 
   const rows = await fetch(API_URI).then(r => r.json());
   const goals = rows.feed.entry

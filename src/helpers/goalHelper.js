@@ -19,7 +19,6 @@ function handleGoalsColors(lineIn) {
 };
 
 export default function makeUlForGoals(row){
-  console.log("-->RO",row)
   const goalsAsArray = row.goals.split("\n");
   const goals = goalsAsArray
     .filter(g => g.goals !== "")

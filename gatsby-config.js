@@ -73,6 +73,8 @@ module.exports = {
       }
     },
     "gatsby-plugin-offline",
-    "learning-goals"
+    "class-info",
+    "learning-goals",
+    
   ]
 };

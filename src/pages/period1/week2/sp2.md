@@ -1,6 +1,6 @@
 ---
-title: "SP-2 Network, HTTP, Reverse Proxies and TLS"
-date: "SP2"
+title: "Network, HTTP, Reverse Proxies and TLS"
+date: "SP2 (08-02-2019)"
 isSP: true
 ---
 

@@ -9,7 +9,10 @@ export default function markdownLinkExtractor(markdown) {
 
   // Taken from https://github.com/markedjs/marked/issues/1279
   //var linkWithImageSizeSupport = /^!?\[((?:\[[^\[\]]*\]|\\[\[\]]?|`[^`]*`|[^\[\]\\])*?)\]\(\s*(<(?:\\[<>]?|[^\s<>\\])*>|(?:\\[()]?|\([^\s\x00-\x1f()\\]*\)|[^\s\x00-\x1f()\\])*?(?:\s+=(?:[\w%]+)?x(?:[\w%]+)?)?)(?:\s+("(?:\\"?|[^"\\])*"|'(?:\\'?|[^'\\])*'|\((?:\\\)?|[^)\\])*\)))?\s*\)/;
+  
+  // eslint-disable-next-line
   var linkWithImageSizeSupport = /^!?\[((?:\[[^[\]]*\]|\\[[\]]?|`[^`]*`|[^[\]\\])*?)\]\(\s*(<(?:\\[<>]?|[^\s<>\\])*>|(?:\\[()]?|\([^\s\x00-\x1f()\\]*\)|[^\s\x00-\x1f()\\])*?(?:\s+=(?:[\w%]+)?x(?:[\w%]+)?)?)(?:\s+("(?:\\"?|[^"\\])*"|'(?:\\'?|[^'\\])*'|\((?:\\\)?|[^)\\])*\)))?\s*\)/;
+  
 
   marked.InlineLexer.rules.normal.link = linkWithImageSizeSupport;
   marked.InlineLexer.rules.gfm.link = linkWithImageSizeSupport;

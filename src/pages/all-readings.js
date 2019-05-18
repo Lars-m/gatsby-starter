@@ -11,7 +11,7 @@ export default ({ data }) => {
         <h2>All readings expected for this semester</h2>
         <LinkCollector
           data={data}
-          tag="exercises"
+          tag="readings"
           useLineBreaks={true}
           removeDuplicates={true}
           render={allLinks => (
@@ -36,20 +36,26 @@ export default ({ data }) => {
 
 export const query = graphql`
   query {
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMarkdownRemark {
       totalCount
       nodes {
         id
         rawMarkdownBody
         frontmatter {
           title
-          date
           pageintro
         }
         fields {
-          slug
-          belongsToPeriod
+          slug          
+          title
           shortTitle
+          depth
+          inFolder
+          title
+          fileName {
+            relativePath
+            base
+          }
         }
       }
     }

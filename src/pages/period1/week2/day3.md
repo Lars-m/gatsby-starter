@@ -17,7 +17,8 @@ date: "06-02-2019"
 
 ### Exercises
 <!--exercises_begin-->
-[Network Exercises](/period1/week2/exercises/nw2_http)
+- [Network Exercises](/period1/week2/exercises/nw2_http)
+- [DUMMY](http://studypoints.dk)
 <!--exercises_end-->
 
 

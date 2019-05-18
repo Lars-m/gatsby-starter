@@ -7,7 +7,6 @@ import { StaticQuery, Link, graphql } from "gatsby";
 import { getDateFromDkDate } from "../helpers/date_utils";
 
 import { navigate } from "gatsby"
-import { Location } from '@reach/router';
 
 import "../../images/css/font-awesome.css";
 import "../../style.css";
@@ -27,9 +26,7 @@ class Container extends React.Component {
     window.addEventListener("online", this.setOffline);
     window.addEventListener("offline", this.setOffline);
     this.setOffline();
-    console.log("MOUNT",this.props)
     if(localStorage.selectedClass){
-      console.log("MOUNTED",localStorage.selectedClass);
       const selectedClass = JSON.parse(localStorage.selectedClass);
       this.setState({selectedClass})
     }
@@ -58,6 +55,7 @@ class Container extends React.Component {
   handleClassChange = (selectedClass) => {
     this.setState({ selectedClass });
     localStorage.selectedClass = JSON.stringify(selectedClass)
+    //Check whether this can be done via the Router
     navigate(window.location.pathname);
     console.log(`Option selected:`, selectedClass,window.location.pathname);
   }
@@ -244,11 +242,7 @@ var query = graphql`
           inFolder
           isIndex
           depth
-          isSinglePageDocument
-          isPeriodDescription
-          isSubPeriodDescription
-          shortTitle
-          belongsToPeriod
+          shortTitle          
           parentFolder
         }
       }
