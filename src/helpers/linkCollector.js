@@ -6,10 +6,11 @@ function getTheLinks(
   rawMarkdownBody,
   start,
   end,
-  allLinksFound,
+  //allLinksFound,
   removeDuplicates,
   useLineBreaks
 ) {
+  const allLinksFound = [];  //Used to filter out duplicates
   const linkPartOfBody = rawMarkdownBody.substring(start, end);
   let linksFound = linkExtractor(linkPartOfBody)
     .map(link => {
@@ -34,7 +35,7 @@ function getTheLinks(
 }
 
 export function getLinks(data, startTag, endTag, useLineBreaks, removeDuplicates,lookOnlyInThisFolder) {
-  const allLinksFound = [];
+  //const allLinksFound = [];
   
   let nodes = data.allMarkdownRemark.nodes.filter(
     //TODO: Could links just live anywhere, also in index files
@@ -43,11 +44,7 @@ export function getLinks(data, startTag, endTag, useLineBreaks, removeDuplicates
  
   //TODO --> Decide whether this should be removed
   if(lookOnlyInThisFolder){
-    nodes = nodes.filter(n=>{
-      //console.log(n.fields.inFolder===lookOnlyInThisFolder,n.fields.inFolder,lookOnlyInThisFolder)
-      //return n.fields.inFolder ===lookOnlyInThisFolder});
-      return n.fields.inFolder.startsWith(lookOnlyInThisFolder)
-    });
+    nodes = nodes.filter(n=>n.fields.inFolder.startsWith(lookOnlyInThisFolder));
   }
   const links = nodes
     .filter(node=>node.fields.depth < 3)  //Only look down to single-day level (levels below can contain overrides)
@@ -72,7 +69,7 @@ export function getLinks(data, startTag, endTag, useLineBreaks, removeDuplicates
           rawMarkdownBody,
           start,
           end,
-          allLinksFound,
+          //allLinksFound,
           removeDuplicates,
           useLineBreaks  
         );
