@@ -15,6 +15,12 @@ function indexes(source, find) {
   }
   return result;
 }
+/*
+Find, and return a representing object all info for a tag.
+source: The string to search
+start: Start index for where to search (should be found using the index(..) method)
+fullPathToNode: Use ONLY for error reporting
+*/
 function findFullTag(source, start, fullPathToNode) {
   let tag = {};
   const stringToCheck = source.substring(start);
@@ -43,6 +49,12 @@ function findFullTag(source, start, fullPathToNode) {
   return tag;
 }
 
+/*
+Find, and return an array of "tag-objects" where the includeFields in the tag-object includes the "fieldToMatch".
+ - fieldToMatch: The string to search for tag-objects
+ - fieldToMatch: The field to match (i.e: exerciser or guides or ... )
+ - fullPathToNode: Use ONLY for error reporting
+*/
 function findMatchingTags(source,fieldToMatch, fullPathToNode) {
   const tags = [];
   const startIndexes = indexes(source, START_TAG);
