@@ -7,13 +7,13 @@ pageintro: |
 
 ### Before this lesson you should:
 Prepare all the questions you can come up with, related to this week, for this lesson
-<!--readings_begin-->
+<!--BEGIN readings ##-->
 
-<!--readings_end-->
+<!--END readings ##-->
 
 ### Exercises: 
-<!--exercises_begin-->
+<!--BEGIN exercises ##-->
 
- <!--exercises_end-->
+ <!--END exercises ##-->
 
 **Slides** 

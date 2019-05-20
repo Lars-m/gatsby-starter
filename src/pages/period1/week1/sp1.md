@@ -13,9 +13,9 @@ isSP: true
 __This is a group exercise__
 
 Setup a group document, outlining the guidelines for how you plan to work together as a group throughout the semester, as explained in this here:
-<!--guides_begin-->
+<!--BEGIN guides ##-->
 [Guidelines for group work](https://docs.google.com/document/d/1mB7inu375Yb59LBTLnhhV4JlGVHkUkDoj8GedcWehnA/edit)
-<!--guides_end-->
+<!--END guides ##-->
 ### How to hand-in your group guidelines TBD
 
 ## Part-3 Reflections on what you did this week

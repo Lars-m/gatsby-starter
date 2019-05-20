@@ -23,17 +23,16 @@ function autoInsertLinksForWeek(data) {
   }
   const links = getLinks(
     data,
-    "<!--exercises_begin-->",
-    "<!--exercises_end-->",
-    true,
+    "exercises",
     true,
     link
   );
-  if (!links || links.length === 0) {
+    if (!links || links.length === 0) {
     return;
   }
   const tableRows = links
-    .map(l => `<tr><td>${l.shortTitle}</td><td>${l.htmlLinks}</td></tr>`)
+    //.map(l => `<tr><td>${l.shortTitle}</td><td>${l.html}</td></tr>`)
+    .map(l => `<tr><td>${l.shortTitle}</td><td>${l.htmlLinks.map(hl=>hl.html).join(" <br/> ")}</td></tr>`)
     .join("");
   if (!tableRows || tableRows.length === 0) {
     return;

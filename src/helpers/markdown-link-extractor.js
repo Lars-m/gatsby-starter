@@ -36,5 +36,11 @@ export default function markdownLinkExtractor(markdown) {
   };
   marked(markdown, { renderer: renderer });
 
+  links = links.map(link => {
+    const linkIsExternal = link.href.startsWith("http");
+    const target = linkIsExternal ? 'target="_blank"' : "";
+    link.html = `<a href=${link.href} ${target}>${link.text}</a>`;
+    return link;
+  })
   return links;
 };

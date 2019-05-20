@@ -24,18 +24,18 @@ I don't plan to talk about NoSQL in general, since _Martin Fowler_ does it a lot
 **Make sure you have done this BEFORE the lesson**
 
 ### Read/Watch
-<!--readings_begin-->
+<!--BEGIN readings ##-->
 - [:tv: SQL vs NoSQL (15. min, if you skip the parts you should already know)](https://www.youtube.com/watch?v=ZS_kXvOeQ5Y)
 - [:tv: Introduction to NoSQL - Martin Fowler (54 min.)](https://www.youtube.com/watch?v=qI_g07C_Q5I)
 - [:book: Mongoose Documentation (skim only, BUT BOOKMARK (10-20 min.))](https://mongoosejs.com/docs/guide.html)
-<!--readings_end-->
+<!--END readings ##-->
 - [:book: Skim my idea for a mini project, meant for the rest of the semester](https://docs.google.com/document/d/15e4a8zho6wdFrBCxYlstGZYlP1wgwjEWM_NYpjcW__0/edit?usp=sharing)
 
 ### Exercises
-<!--exercises_begin-->
+<!--BEGIN exercises ##-->
  - [Getting Started with mongoose](https://mongoosejs.com/docs/index.html)
  - [Mongoose Crud Tutorial](https://vegibit.com/mongoose-crud-tutorial/) **READ THIS BEFORE YOU START**: This tutorial assumes you have installed MongoDB locally, but use the [start code provided here](https://github.com/fullstackjavascriptcode/crudMongooseStartCode) to get a quick start, using your account on *MongoDB Atlas* (it also sets up sample data for the queries suggested by the tutorial). The tutorial assumes you have installed a local Mongo Client *Compass* (similar to Workbench for MySQL), but I suggest you just use the UI-environment provided in the cloud by Atlas.
-<!--exercises_end-->
+<!--END exercises ##-->
 
 ### Slides
 [Mongo/Mongoose Slides](http://slides.mydemos.dk/noSQL/mongo_mongoose.html#1)

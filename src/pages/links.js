@@ -1,19 +1,19 @@
 import { graphql } from "gatsby";
-import LinkCollector from "../helpers/linkCollector";
+import LinkCollector,{LinkCollectorFromFrontMatter} from "../helpers/linkCollector";
 import React from "react";
 import Layout from "../components/layout";
 
 export default class Links extends React.Component {
-  constructor(props){
-    super(props)
-    this.state = {showSlidesDay: false}
-    this.handleChange = this.handleChange.bind(this)
+  constructor(props) {
+    super(props);
+    this.state = { showSlidesDay: false };
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(evt){
+  handleChange(evt) {
     const target = evt.target;
-    if(target.id === 'showSlidesDay') {
-      this.setState({showSlidesDay:target.checked})
+    if (target.id === "showSlidesDay") {
+      this.setState({ showSlidesDay: target.checked });
     }
   }
 
@@ -25,16 +25,19 @@ export default class Links extends React.Component {
         <LinkCollector
           data={data}
           tag="guides"
-          useLineBreaks={true}
           removeDuplicates={true}
           render={links => (
             <table>
               <tbody>
-                {links.map(d => (
-                  <tr key={d.id}>
-                    <td dangerouslySetInnerHTML={{ __html: d.htmlLinks }} />
-                  </tr>
-                ))}
+                {links.map(d => {
+                  const html = d.htmlLinks.map(l => l.html).join("<br/>");
+                  return (
+                    <tr key={d.id}>
+                      <td style={{width:"40%"}}>{d.title}</td>
+                      <td dangerouslySetInnerHTML={{ __html: html }} />
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           )}
@@ -43,42 +46,57 @@ export default class Links extends React.Component {
           List of studypoint exercises (friday exercises) given throughout the
           semester
         </h2>
-        <LinkCollector
+        
+        <LinkCollectorFromFrontMatter
           data={data}
-          tag="sp"
-          useLineBreaks={true}
+          prop="isSP"
           removeDuplicates={true}
-          render={links => (
-            <ul>    
-            {links.map(d => <li key={d.id} dangerouslySetInnerHTML={{ __html: d.htmlLinks }} />)}  
-            </ul>
+          render={allLinks => (
+            <table>
+              <tbody>
+                {allLinks.map(d => {
+                  const html = d.htmlLinks.map(l=>l.html).join(" | ")
+                  return (
+                  <tr key={d.id}>
+                    <td style={{width:"40%"}}>{d.title}</td>
+                    <td dangerouslySetInnerHTML={{ __html: html }} />
+                  </tr>
+                )})}
+              </tbody>
+            </table>
           )}
         />
-        <h2>
-          List of CA's (Course Assignments)
-        </h2>
+
+        <h2>List of CA's (Course Assignments)</h2>
         <LinkCollector
           data={data}
           tag="ca"
-          useLineBreaks={true}
           removeDuplicates={true}
-          render={links => (
-            <ul>    
-            {links.map(d => <li key={d.id} dangerouslySetInnerHTML={{ __html: d.htmlLinks }} />)}  
+          render={links =>{ 
+            return (
+            <ul>
+              {links.map(d => {
+               const html = d.htmlLinks.map(l => l.html).join(" | ");
+               return (<li
+                  key={d.id}
+                  dangerouslySetInnerHTML={{ __html: html }}
+                />
+              )})}
             </ul>
-          )}
+          )}}
         />
         <h2>
-          List of Slides used throughout the semester &nbsp; 
+          List of Slides used throughout the semester &nbsp;
           <span style={{ fontSize: "small" }}>
-          <label>
-            Show (last) day used: &nbsp;
-            <input id="showSlidesDay" 
-                  type="checkbox" 
-                  onChange={this.handleChange}
-                  checked={this.state.showSlidesDay}
-                   />
-          </label>
+            <label>
+              Show (last) day used: &nbsp;
+              <input
+                id="showSlidesDay"
+                type="checkbox"
+                onChange={this.handleChange}
+                checked={this.state.showSlidesDay}
+              />
+            </label>
           </span>
         </h2>
         <LinkCollector
@@ -88,15 +106,18 @@ export default class Links extends React.Component {
           removeDuplicates={true}
           render={links => (
             <table>
-            <tbody>
-              {links.map(d => (
-                <tr key={d.id}>
-                  {this.state.showSlidesDay && <td>{d.title}</td>}
-                  <td dangerouslySetInnerHTML={{ __html: d.htmlLinks }} />
-                </tr>
-              ))}
-            </tbody>
-          </table>)}
+              <tbody>
+                {links.map(d => {
+                  const html = d.htmlLinks.map(l=>l.html).join("</br>")
+                  return (
+                  <tr key={d.id}>
+                    {this.state.showSlidesDay && <td>{d.title}</td>}
+                    <td dangerouslySetInnerHTML={{ __html: html }} />
+                  </tr>
+                )})}
+              </tbody>
+            </table>
+          )}
         />
       </Layout>
     );
@@ -122,9 +143,10 @@ export const query = graphql`
         frontmatter {
           title
           pageintro
+          isSP
         }
         fields {
-          slug          
+          slug
           title
           shortTitle
           depth
@@ -137,6 +159,5 @@ export const query = graphql`
         }
       }
     }
-   
   }
 `;

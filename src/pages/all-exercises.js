@@ -11,17 +11,18 @@ export default ({ data }) => {
         <LinkCollector
           data={data}
           tag="exercises"
-          useLineBreaks={false}
           removeDuplicates={true}
           render={allLinks => (
             <table>
               <tbody>
-                {allLinks.map(d => (
+                {allLinks.map(d => {
+                  const html = d.htmlLinks.map(l=>l.html).join("<br/>")
+                  return (
                   <tr key={d.id}>
                     <td>{d.title}</td>
-                    <td dangerouslySetInnerHTML={{ __html: d.htmlLinks }} />
+                    <td dangerouslySetInnerHTML={{ __html: html }} />
                   </tr>
-                ))}
+                )})} 
               </tbody>
             </table>
           )}

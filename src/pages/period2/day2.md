@@ -12,16 +12,16 @@ pageintro: |
 
 ### Before this lesson you should:
 
-<!--readings_begin-->
+<!--BEGIN readings ##-->
 - [:book: opinionated, but interesting article about the story of React (15 min.))](https://thefullstack.xyz/history-express-javascript-framework/)
 - [:book: Error handling with node (20 min.) (Read/skim)](https://strongloop.com/strongblog/robust-node-applications-error-handling/)
 - [:book: Express middleware (10 min.)](https://expressjs.com/en/guide/using-middleware.html)  and/or [:tv: middleware (8 min.)](https://www.youtube.com/watch?v=9HOem0amlyg)
-<!--readings_end-->
+<!--END readings ##-->
 
 
 ### Exercises
-<!--exercises_begin-->
+<!--BEGIN exercises ##-->
 - [Complete exercises from monday + the REST part](https://docs.google.com/document/d/14nub9BzWpDbfxyFDLDNVmJaxPIYOOxblgT3owpv1j0Y/edit?usp=sharing)
 - [Debugging and Logging](https://docs.google.com/document/d/14xNSHf_szUVA9dP7F6MQhaq59a6Lg9HOxkZDv3xYtTc/edit?usp=sharing)
-<!--exercises_end-->
+<!--END exercises ##-->
 

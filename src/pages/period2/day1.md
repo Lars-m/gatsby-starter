@@ -13,19 +13,19 @@ pageintro: |
 
 ### Before this lesson you should:
 
-<!--readings_begin-->
+<!--BEGIN readings ##-->
 Read/skim these articles:
 - [:book: Express/Node introduction (25-30 min.)](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/Introduction)
 - [:book: Express Website (Skim - 15 min.)](https://expressjs.com/en/starter/installing.html), especially the getting started pages 
 - [:book: Express Production best practices (Skim 15 min.)](https://expressjs.com/en/advanced/best-practice-performance.html)
 - [:book: Mini Project for the rest of the semester](https://docs.google.com/document/d/15e4a8zho6wdFrBCxYlstGZYlP1wgwjEWM_NYpjcW__0/edit?usp=sharing)
-<!--readings_end-->
+<!--END readings ##-->
 
 
 ### Exercises
-<!--exercises_begin-->
+<!--BEGIN exercises ##-->
 - [Express Exercises ](https://docs.google.com/document/d/14nub9BzWpDbfxyFDLDNVmJaxPIYOOxblgT3owpv1j0Y/edit?usp=sharing) (Start with these today, we will continue Friday)  
-<!--exercises_end-->
+<!--END exercises ##-->
 
 ### Slides
 [Express intro](http://slides.mydemos.dk/express1/express1.html#1)

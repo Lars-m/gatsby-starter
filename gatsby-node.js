@@ -163,6 +163,6 @@ exports.createPages = ({ graphql, actions }) => {
         } 
       });
       resolve();
-    });
+    })//.catch(e=>console.log(e));
   });
 };

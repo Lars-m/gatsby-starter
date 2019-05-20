@@ -1,22 +1,23 @@
 import { graphql } from "gatsby";
-import LinkCollector from "../helpers/linkCollector";
+import {LinkCollectorFromFrontMatter} from "../helpers/linkCollector";
 import React from "react";
 import Layout from "../components/layout";
+
 
 export default ({ data }) => {
   return (
     <Layout>
       <div>
-        <h2>All Read/Watch-references given this semester</h2>
-        <LinkCollector
+        <h2>All Exercises given this semester</h2>
+        <LinkCollectorFromFrontMatter
           data={data}
-          tag="readings"
+          prop="isSP"
           removeDuplicates={true}
           render={allLinks => (
             <table>
               <tbody>
                 {allLinks.map(d => {
-                  const html = d.htmlLinks.map(l=>l.html).join("<br/>")
+                  const html = d.htmlLinks.map(l=>l.html).join(" | ")
                   return (
                   <tr key={d.id}>
                     <td>{d.title}</td>
@@ -43,6 +44,7 @@ export const query = graphql`
         frontmatter {
           title
           pageintro
+          isSP
         }
         fields {
           slug          

@@ -1,6 +1,8 @@
-const START_TAG = "<!--*#*START";
-const END = "*#*-->";
-const END_TAG = "<!--*#*END";
+import linkExtractor from "./markdown-link-extractor";
+
+const START_TAG = "<!--BEGIN";
+const END = "##-->";
+const END_TAG = "<!--END";
 const SEPARATOR = "_#_";
 
 function indexes(source, find) {
@@ -8,8 +10,8 @@ function indexes(source, find) {
     return [];
   }
   var result = [];
-  for (i = 0; i < source.length; ++i) {
-    if (source.substring(i, i + find.length) == find) {
+  for (let i = 0; i < source.length; ++i) {
+    if (source.substring(i, i + find.length) === find) {
       result.push(i);
     }
   }
@@ -55,7 +57,7 @@ Find, and return an array of "tag-objects" where the includeFields in the tag-ob
  - fieldToMatch: The field to match (i.e: exerciser or guides or ... )
  - fullPathToNode: Use ONLY for error reporting
 */
-function findMatchingTags(source,fieldToMatch, fullPathToNode) {
+export function findMatchingTags(source,fieldToMatch, fullPathToNode) {
   const tags = [];
   const startIndexes = indexes(source, START_TAG);
   const endIndexes = indexes(source, END_TAG);
@@ -68,71 +70,26 @@ function findMatchingTags(source,fieldToMatch, fullPathToNode) {
   startIndexes.forEach(idx => {
     const tag = findFullTag(source,idx,fullPathToNode);
     if(tag.includeFields.includes(fieldToMatch)){
+      // console.log(tag.linkContent);
+      // const links = linkExtractor(tag.linkContent);
+      // console.log("LINKS -->",links)
       tags.push(tag);
     }
   })
   return tags;
 }
 
-const testString = `
----
-title: "Day-2, an introduction to maven"
-date: "29-01-2019"
-pageintro: |  
-  Testing and Maven
----
+export function findLinksMarkedWithTag(source,fieldToMatch, fullPathToNode){
+  const allLinks = [];
+  const matchingTags = findMatchingTags(source,fieldToMatch, fullPathToNode);
+  matchingTags.forEach(mt=>{
+    linkExtractor(mt.linkContent).forEach(l=>allLinks.push(l));
+  })
+  return allLinks;
+}
 
-### Before this lesson you should:
 
-<!--*#*START readings *#*-->
-- :book: [What is Maven (5 min.)](https://maven.apache.org/what-is-maven.html)
-- :book: [Maven in 5 min (expect to use at least 15 min. This is included in one of todays exercises)](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html)
-- :book: [Maven Getting Started Guide (15-20 min, bookmark for future reference)](https://maven.apache.org/guides/getting-started/index.html)
-<!--*#*END readings *#*-->
 
-### Exercises
-<!--*#*START exercises *#*-->
-- [Getting started with Maven](https://docs.google.com/document/d/193QmOG5RIzCq1oTwMVKlCegWTT8lv7hmavqX6PxMLEM/edit?usp=sharing)
-- [Testing With Maven](https://docs.google.com/document/d/1tDz3rP4Li52nJSIqBgPo6PKLSpVtX56a-ygAHKdKNO0/edit?usp=sharing)
-<!--*#*END exercises *#*-->
-
-<!--*#*START exercises_#_guides *#*-->
-[Maven Guidelines for 3. semester](https://docs.google.com/document/d/1WhUccsbU7SzomqSKau30BcmfsvjBMCNDsWGohFFmyRI/edit)
-<!--*#*END exercises_#_guides *#*-->
-
-#### Guidelines
-<!--*#*START guides *#*-->
-- [Maven Guidelines for 3. semester](https://docs.google.com/document/d/1WhUccsbU7SzomqSKau30BcmfsvjBMCNDsWGohFFmyRI/edit)
-<!--*#*END guides *#*-->
-
-#### Slides
-<!--*#*START slides *#*-->
-[Maven Slides](https://docs.google.com/presentation/d/1o2c2haU7zM9M9U6tRW7drgRMObmWx-9oiCe2_6mPmRk/edit?usp=sharing)
-<!--*#*END slides *#*-->
-
-`;
-
-console.log("GUIDES")
-console.log(findMatchingTags(testString,"guides","XXX"));
-console.log("EXERCISES")
-console.log(findMatchingTags(testString,"exercises","XXX"));
-console.log("SLIDES")
-console.log(findMatchingTags(testString,"slides","XXX"));
-
-// const startIndexes = indexes(testString, START_TAG);
-// const endIndexes = indexes(testString, END_TAG);
-// if (startIndexes.length === 0) {
-//   return;
-// }
-// if (startIndexes.length !== endIndexes.length) {
-//   console.error(
-//     "Amount of Start and End tags are not equal in " + node.fileAbsolutePath
-//   );
-//   return;
-// }
-// console.log("Start Indexes", startIndexes);
-// console.log("End Indexes", endIndexes);
-
-// const firstTag = findFullTag(testString, startIndexes[0]);
-// //console.log(firstTag)
-// startIndexes.forEach(idx => console.log(findFullTag(testString, idx)));
+/* 
+  see contacts for a test
+*/

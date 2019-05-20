@@ -1,9 +1,6 @@
 ---
-title: "Day-3, Continuous Integration, Test Driven Design and devops"
-date: "30-01-2019"
-shortTitle: "DAY3"
-pageintro: |
-  Continuous Integration, Test Driven Design and devops
+title: "The HTTP Protocol"
+date: "06-02-2019"
 ---
 
 ### Before this lesson you should:
@@ -16,7 +13,10 @@ pageintro: |
 
 ### Exercises
 <!--BEGIN exercises ##-->
-- [Getting started with CI and Travis](https://docs.google.com/document/d/1XJrJEkhXUbOxJ-RzhBxkOkVlZYe6E3BjPu-o0AlaXnM/edit?usp=sharing)
+- [Getting started with CI and Travis](https://a.b.dk)
+- [dddd](https://da.b.dk)
+- [dsfsdfddd](https://da2.b.dk)
+
 - [Testing and Deployment with Travis](https://docs.google.com/document/d/1lbDDwoPFQVkogopt1Wmn92FoLP6vUpCvt2TqTgDCMPM/edit?usp=sharing)
  <!--END exercises ##-->
 
