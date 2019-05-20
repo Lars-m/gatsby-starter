@@ -22,8 +22,7 @@ export function getLinksFromFrontMatter(data,prop,removeDuplicates,lookOnlyInThi
     if(node.frontmatter[prop] && node.frontmatter[prop] === true){
 
       const link = {};
-      link.html = [ `<a href=${node.fields.slug}>${node.fields.shortTitle}</>`]
-
+      link.html = [`<a href=${node.fields.slug}>${node.fields.shortTitle}</>`]
       allLinks.push({
         title: `${node.fields.shortTitle} - ${node.fields.title}`,
         shortTitle: node.fields.shortTitle,
@@ -85,10 +84,10 @@ export function getLinks(data, tag, removeDuplicates, lookOnlyInThisFolder) {
       allLinks.push({
         title: `${node.fields.shortTitle} - ${node.fields.title}`,
         shortTitle: node.fields.shortTitle,
-        sortField: node.fields.shortTitle,
-        // sortField: getDateFromDkDate(node.fields.shortTitle)
-        //   .toString()
-        //   .toLowerCase(),
+        //sortField: node.fields.shortTitle,
+         sortField: getDateFromDkDate(node.fields.shortTitle)
+           .toString()
+           .toLowerCase(),
         id: node.id,
         info: node.frontmatter.pageintro,
         slug: node.fields.slug,
@@ -96,10 +95,10 @@ export function getLinks(data, tag, removeDuplicates, lookOnlyInThisFolder) {
       });
     }
   });
-
+  allLinks = allLinks.sort((a,b) => a.sortField > b.sortField ? 1: -1);
   return allLinks
     .filter(l => l.htmlLinks.length > 0)
-    .sort((a, b) => b.shortTitle - a.sortField);
+    //.sort((a, b) => b.shortTitle - a.shortTitle);
 }
 
 /*
