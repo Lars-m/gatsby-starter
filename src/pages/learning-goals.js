@@ -58,12 +58,10 @@ export const query = graphql`
         rawMarkdownBody
         frontmatter {
           title
-
           pageintro
         }
         fields {
           slug
-          
           shortTitle
         }
       }

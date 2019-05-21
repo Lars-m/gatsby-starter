@@ -10,7 +10,7 @@ There is no review next monday for these exercises. They are reviewed together w
 You must however add a link to the review document to a server with
 information as requested in part-2 below.
 
-### Part-1 (Complete the daily exercises from the week)
+### Part-1 Complete all exercises (according to your colour level) from this week
 <!--PeriodExercises period1/week2 PeriodExercises--> 
 
 ## Part-2

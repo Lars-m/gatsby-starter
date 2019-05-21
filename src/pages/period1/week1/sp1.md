@@ -4,7 +4,7 @@ date: "SP1 (01-02-2019)"
 isSP: true
 ---
 
-## Part-1 (Complete all exercises (according to your colour level) from this week)
+## Part-1 Complete all exercises (according to your colour level) from this week
 
 <!--PeriodExercises period1/week1 PeriodExercises--> 
 
