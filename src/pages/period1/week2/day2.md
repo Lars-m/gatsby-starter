@@ -14,7 +14,7 @@ date: "05-02-2019"
 - [DHCP](https://kb.iu.edu/d/adov)
 <!--END readings ##-->
 
-<!--A_SKIP-->
+
 
 ### Exercises
 <!--BEGIN exercises ##-->
