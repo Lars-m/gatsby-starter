@@ -1,9 +1,10 @@
 import React from "react";
-import { graphql, Link } from "gatsby";
+import { graphql } from "gatsby";
 import Layout from "../components/layout";
-import all from "../helpers/periodLinks";
-const periodLinks = all.periodLinks;
+//import all from "../helpers/periodLinks";
+//const periodLinks = all.periodLinks;
 
+/*
 function getDayInWeekFromDkDate(date) {
   if(date === null || !date.includes("-")){
    throw new Error("Date is NULL")
@@ -24,16 +25,16 @@ function getDayInWeekFromDkDate(date) {
   ];
   return days[dayInWeek];
 }
-
+*/
 export default ({ data }) => {
   const post = data.markdownRemark;
-  let links = [];
   let periodInfoHtml = null;
   let periodTitle = null;
-  const sorted = periodLinks(data.allMarkdownRemark.nodes, data.markdownRemark.fields.inFolder);
   //CHECK THIS
   periodInfoHtml = post.html;
   periodTitle = post.frontmatter.title;
+  // let links = [];
+  // const sorted = periodLinks(data.allMarkdownRemark.nodes, data.markdownRemark.fields.inFolder);
   // links = sorted.map((day, index) => {
   //   let dayInWeek = day.fields.shortTitle;
   //   try{

@@ -6,7 +6,6 @@ class PagesForMenu {
     this.pages.LEVEL3 = [];
   }
   resetSubMenus() {
-    console.log("RESET")
     this.pages.LEVEL1 = [];
     this.pages.LEVEL2 = [];
   }

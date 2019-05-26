@@ -109,6 +109,5 @@ export default function LinkCollector({ data, tag, removeDuplicates, render }) {
 }
 export function LinkCollectorFromFrontMatter({ data, prop, removeDuplicates, render }) {
   const links = getLinksFromFrontMatter(data, prop, removeDuplicates);
-  console.log("----------",links)
   return render(links);
 }

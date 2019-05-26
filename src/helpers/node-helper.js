@@ -9,7 +9,6 @@ export function getOverridenPageInfo(nodes, selectedClass, folder, fileName) {
       const searchString = `pages/${folder}/${selectedClass}/${fileName}`;
       nodes.forEach(n => {
         if (searchString === n.fields.fileName.relativePath) {
-          console.log("FOUND -> ", n.fields.fileName.relativePath);
           replacementHTML = n.html;
         }
       });

@@ -8,7 +8,7 @@ pageintro: |
 ### Before this lesson you should:
 
 <!--BEGIN readings ##-->
-- [:book: Read page-1 of todays exercises, to see WHY you need todays topics (5 min.)](https://docs.google.com/document/d/1m0HaRADZ4Q2zcQMeR6JEAdacKnJTSi4aSLBKcEXuEug/edit#heading=h.hnvt8uwl2yk7)
+- [:book: Read page-1 of todays exercises, to see WHY you need todays topics (5 min.)](https://docs.google.com/document/d/1m0HaRADZ4Q2zcQMeR6JEAdacKnJTSi4aSLBKcEXuEug/edit?usp=sharing)
 
 - [:book: Java Callable Future Example (20 min. should give you time to execute the example)](https://www.journaldev.com/1090/java-callable-future-example)
 
@@ -22,10 +22,10 @@ pageintro: |
 
 ### Exercises 
 <!--BEGIN exercises_#_exam-prep ##-->
-[Asynchronous REST](https://docs.google.com/document/d/1m0HaRADZ4Q2zcQMeR6JEAdacKnJTSi4aSLBKcEXuEug/edit#heading=h.hnvt8uwl2yk7)
+[Asynchronous REST](https://docs.google.com/document/d/1m0HaRADZ4Q2zcQMeR6JEAdacKnJTSi4aSLBKcEXuEug/edit?usp=sharing)
 <!--END exercises_#_exam-prep ##-->
 
-
+### Slides 
 <!--BEGIN slides ##-->
 [Thread Recap + Futures and Callables](https://docs.google.com/presentation/d/1aI-4iprwhoc-SMURHFWBvumu5KoECKDc4hFYF2vCtMo/edit?usp=sharing)
 <!--END slides ##-->

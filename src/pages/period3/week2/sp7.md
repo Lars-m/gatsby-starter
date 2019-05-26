@@ -1,6 +1,6 @@
 ﻿---
 title: "React Router, Security and React Native"
-date: "SP4 (12-04-2019)"
+date: "SP7 (12-04-2019)"
 isSP: true
 ---
 

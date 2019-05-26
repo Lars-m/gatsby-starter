@@ -24,12 +24,12 @@ function getDayInfo(data, selectedClass) {
   let details = null;
   if (infoForDay) {
     details = <a href={timeEditURL}>See TimeEdit</a>;
-
     const info = JSON.parse(infoForDay.dayInfo);
     const infoClass = info[selectedClass];
-    if (!infoClass || !infoClass.teacher ||!infoClass.room ||!infoClass.room) {
+    if (!infoClass || !('teacher' in infoClass) ||!('room' in infoClass) ||!('time' in infoClass)) {
       console.error(
-        `No info found for class: ${selectedClass}. Is class columns for this class defined in sheet `
+        `No info found for class: ${selectedClass}. Is class columns for this class defined in sheet `,
+        data.markdownRemark.fields.shortTitle,infoClass
       );
       return details;
     }
