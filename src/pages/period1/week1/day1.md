@@ -16,9 +16,9 @@ pageintro: |
 <!--END readings ##-->
 
 **Exercises:** 
-<!--BEGIN exercises_#_guides ##-->
+<!--BEGIN exercises ##-->
 [Test Driven Desing with JUnit](https://docs.google.com/document/d/107xr-XJY9qPyYKZlWZW6usw5xuZm48pNrwKPBQ3F9WE/edit?usp=sharing)
-<!--END exercises_#_guides ##-->
+<!--END exercises ##-->
 
 **Slides:** 
 <!--BEGIN slides ##-->
