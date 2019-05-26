@@ -34,25 +34,25 @@ export default ({ data }) => {
   //CHECK THIS
   periodInfoHtml = post.html;
   periodTitle = post.frontmatter.title;
-  links = sorted.map((day, index) => {
-    let dayInWeek = day.fields.shortTitle;
-    try{
-      dayInWeek = getDayInWeekFromDkDate(day.fields.shortTitle);
-    }catch(err){} 
-    return (
-      <tr key={index}>
-        <td style={{ width: 120 }}>
-          <Link
-            style={{ textDecoration: "none" }}
-            to={day.fields.slug}
-          >
-            <span id={day.fields.slug.split("/")[1]}>{dayInWeek}</span>
-          </Link>
-        </td>
-        <td>{day.frontmatter.pageintro || day.frontmatter.title}</td>
-      </tr>
-    );
-  });
+  // links = sorted.map((day, index) => {
+  //   let dayInWeek = day.fields.shortTitle;
+  //   try{
+  //     dayInWeek = getDayInWeekFromDkDate(day.fields.shortTitle);
+  //   }catch(err){} 
+  //   return (
+  //     <tr key={index}>
+  //       <td style={{ width: 120 }}>
+  //         <Link
+  //           style={{ textDecoration: "none" }}
+  //           to={day.fields.slug}
+  //         >
+  //           <span id={day.fields.slug.split("/")[1]}>{dayInWeek}</span>
+  //         </Link>
+  //       </td>
+  //       <td>{day.frontmatter.pageintro || day.frontmatter.title}</td>
+  //     </tr>
+  //   );
+  // });
 
   return (
     <Layout>
@@ -68,14 +68,15 @@ export default ({ data }) => {
           }}
         >
           <h1>{periodTitle}</h1>
-          <div dangerouslySetInnerHTML={{ __html: periodInfoHtml }} />
+          
          <br/>
         </div>
-        {links.length > 0 && (
+        <div dangerouslySetInnerHTML={{ __html: periodInfoHtml }} />
+        {/* {links.length > 0 && (
           <table>
             <tbody>{links}</tbody>
           </table>
-        )}
+        )} */}
       </div>
     </Layout>
   );

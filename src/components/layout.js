@@ -82,6 +82,7 @@ class Container extends React.Component {
         const isChildWithIndex = folder === parentFolder && isIndex;
         const isMdFileAndInFolder = !isIndex && inFolder === folder;
         const include = isMdFileAndInFolder || isChildWithIndex;
+        
         if (include) {
           node.sortField = getDateFromDkDate(shortTitle)
             .toString()
