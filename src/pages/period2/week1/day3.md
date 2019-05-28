@@ -14,7 +14,7 @@ TBD: Find BETTER MATERIAL for most of this week
 
 ### Exercises 
 <!--BEGIN exercises ##-->
-- [Day-3](https://docs.google.com/document/d/1tbVNQe4rbiVf4uKQAiugeTwYRas0qLBvnrTxEhzxnf4/edit?usp=sharing)
+- [Day-3](https://docs.google.com/document/d/1PjoXPtpMgaoNVHCSSaidAiFAYLviG46zcHqSwfzFivM/edit?usp=sharing)
 
 <!--END exercises ##-->
 

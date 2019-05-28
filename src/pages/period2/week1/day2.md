@@ -14,7 +14,7 @@ TBD: Find BETTER MATERIAL for most of this week
 
 ### Exercises 
 <!--BEGIN exercises ##-->
-- [Day-2](https://docs.google.com/document/d/1pJYALzFkZlGHKSN2PtvdJXL9UYg5oB0PEj2Sx6aZmkE/edit?usp=sharing)
+- [Day-2](https://docs.google.com/document/d/1IhUg6lFFa_9m2axBC5ffOIS5J6LAOpv5PdDpN1ZN6Xk/edit?usp=sharing)
 
 - [Mapping Inheritance (RED ONLY)](https://docs.google.com/document/d/1qhIuA5MuIR-YYVUsvTsI6LGEOQxOPEopBrAkoHhopaI/edit?usp=sharing)
 

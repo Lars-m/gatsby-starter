@@ -15,7 +15,7 @@ TBD: Find BETTER MATERIAL for most of this week
 
 ### Exercises 
 <!--BEGIN exercises ##-->
-- [Day-1](https://docs.google.com/document/d/1e7Xyj_dCH6QkYIZ1zd2nE2XBffwCQ9LWxbMX7AGM-4U/edit?usp=sharing)
+- [Day-1](https://docs.google.com/document/d/16sMkPFG3ZJ_TYgeeNNEXjhHw_FqwtHQbcml7yuK3IoQ/edit?usp=sharing)
 <!--END exercises ##-->
 
 **Slides:** 
