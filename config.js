@@ -2,9 +2,9 @@ module.exports = {
   title1: `DAT 3. semester`,
   title2: `Fall 2019`,
   classes: [
-    { value: 'a', label: 'A-class' },
-    { value: 'b', label: 'B-class' },
-    { value: 'c', label: 'Bornholm' }
+    { value: 'a', label: 'A-class',backgroundColor:"#295683" },
+    { value: 'b', label: 'B-class',backgroundColor:"black" },
+    { value: 'c', label: 'Bornholm',backgroundColor: "#003300" }
   ],
   showWeekInfoForEachDayInWeek : false,
   timeEdit: "https://cloud.timeedit.net/cphbusiness/web/student",

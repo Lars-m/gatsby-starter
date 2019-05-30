@@ -57,7 +57,7 @@ class Container extends React.Component {
     localStorage.selectedClass = JSON.stringify(selectedClass)
     //Check whether this can be done via the Router
     navigate(window.location.pathname);
-    console.log(`Option selected:`, selectedClass,window.location.pathname);
+    //console.log(`Option selected:`, selectedClass,window.location.pathname);
   }
 
   /*
@@ -162,7 +162,6 @@ class Container extends React.Component {
       <Link
         key={p.id}
         to={p.fields.slug}
-        //onClick={() => this.setSubmenuForThisNode(nodes,p, 1)}
         onClick={() => this.setSubmenuForThisNodeX(nodes, p, 1)}
         activeClassName="active"
         partiallyActive={true}
@@ -172,9 +171,10 @@ class Container extends React.Component {
     ));
     const {classes} = data.site.siteMetadata
     const selected = this.state.selectedClass ? this.state.selectedClass.label : "";
+    const background = this.state.selectedClass ? {backgroundColor:this.state.selectedClass.backgroundColor} : {}
     return (
       <div>
-        <div className="header">
+        <div className="header" style={background}>
           <div className="title">
             <img src={logo} alt="Logo" />
             <div style={{ alignSelf: "flex-start", marginLeft: "2em" }}>
@@ -255,6 +255,7 @@ var query = graphql`
         classes {
           value
           label
+          backgroundColor
         }
         topMenu {
           title
