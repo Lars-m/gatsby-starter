@@ -249,6 +249,16 @@ a[href*="http"]:after {
   }
 }
 
+.ellipsis {
+  max-width:600px;
+  overflow:hidden;
+  white-space: nowrap;
+  display:block;
+  margin:0px;
+  text-decoration: none;
+  text-overflow:ellipsis;
+}
+
 /**
 * ----------------------------------------------
 * Styles for the Accordion
@@ -265,10 +275,10 @@ a[href*="http"]:after {
 
 .accordion__button {
   /* background-color: #f4f4f4; */
-  background-color: lightsteelblue;
+  background-color: white;
   color: #444;
   cursor: pointer;
-  padding: 18px;
+  padding: 8px;
   font-size: large;
   width: 100%;
   text-align: left;
@@ -276,8 +286,8 @@ a[href*="http"]:after {
 }
 
 .accordion__button:hover {
-  /* background-color: #ddd; */
-  background-color: lightblue;
+  background-color: cadetblue;
+  color: white;
 }
 
 .accordion__button:before {

@@ -19,7 +19,7 @@ pageintro: |
 <!--BEGIN exercises ##-->
 [Test Driven Desing with JUnit](https://docs.google.com/document/d/107xr-XJY9qPyYKZlWZW6usw5xuZm48pNrwKPBQ3F9WE/edit?usp=sharing)
 <!--END exercises ##-->
-
+  
 **Slides:** 
 <!--BEGIN slides ##-->
 - [Semester Intro](https://docs.google.com/presentation/d/1ta1GsQeeXvno0MwWrWaKsSMHxrvfE37oViMuKzrhIxs/edit?usp=sharing)

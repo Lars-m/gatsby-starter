@@ -1,63 +1,68 @@
-import React from "react"
-import { css } from "react-emotion"
-import { Link, graphql } from "gatsby"
-import { rhythm } from "../utils/typography"
-import Layout from "../components/layout"
-import { getDayInWeekFromDkDate, getDateFromDkDate } from "../helpers/date_utils"
+import React from "react";
+import { css } from "react-emotion";
+import Layout from "../components/layout";
+import {
+  getDayInWeekFromDkDate
+} from "../helpers/date_utils";
 
-function getDateForTitleIfDate(shortTitle){
-  let dayInWeek = "";
-  console.log("Short",shortTitle)
-  try{
-     dayInWeek = ` (${getDayInWeekFromDkDate(shortTitle)})`
-     console.log(dayInWeek)
-  }catch(err){}
-  return shortTitle + dayInWeek
-}
-export default ({ data }) => {
-  let days = data.allMarkdownRemark.edges.filter(({ node }) => node.fields.belongsToPeriod);
-  days = days.map(d=>{
-    const node = d.node;    
-    //const dateForTitle = `${node.frontmatter.date} (${getDayInWeekFromDkDate(node.frontmatter.date)})`
-    const dateForTitle = getDateForTitleIfDate(node.fields.shortTitle);
-    return {
-      title: `${dateForTitle} - ${node.frontmatter.title}`,
-      sortField: getDateFromDkDate(node.fields.shortTitle).toString().toLowerCase(),
-                 
-      id: node.id,
-      info: node.frontmatter.pageintro,
-      slug: node.fields.slug,
-      period: node.frontmatter.period
+export default ({ data }) => {  
+  const allNodes = data.allMarkdownRemark.nodes;
+  //Get an Object with periods as keys
+  let periods =allNodes.filter(
+    node => node.fields.depth === 1
+  ).reduce((acc, current) => {
+    if(!acc){
+      acc = {}
+    }
+    acc[current.fields.inFolder] = {period:current.fields.shortTitle,weeks: []};
+    return acc;
+  }, {});
+  
+  const daysAndWeeks = allNodes.filter(node => node.fields.depth > 1);
+  //Add weeks to periods
+  daysAndWeeks.forEach(node=>{
+    const root = node.fields.inFolder.split("/")[0];
+    if(node.fields.isIndex && periods.hasOwnProperty(root)){
+      periods[root].weeks.push({shortTitle: node.fields.shortTitle,id:root+node.id,inFolder:node.fields.inFolder,days: []})
     }
   })
-  days = days.sort((a, b) => a.sortField - b.sortField );
-  
-  const daysAsLinks = days.map(( day ) => {
-    let newPeriod = null;
-    if(period !== day.period){
-      period = day.period;
-      newPeriod = period;
+  //Add days to corresponding weeks
+  daysAndWeeks.forEach(node => {
+    const root = node.fields.inFolder.split("/")[0];
+    if(periods.hasOwnProperty(root) && node.fields.depth === 2){
+      periods[root].weeks.forEach(week => {
+        if(node.fields.inFolder.startsWith(week.inFolder)){
+          const dayInWeek = getDayInWeekFromDkDate(node.fields.shortTitle);
+          const linkText = node.fields.shortTitle + (dayInWeek ? ` (${dayInWeek})` : "");
+          week.days.push({slug:node.fields.slug,
+                          linkText,
+                          id:node.id,
+                          pageintro:(node.frontmatter.pageintro || "")})
+        }
+      })
     }
-    return(
-    <div key={day.id} >
-      {newPeriod && <h3 style={{color:"#295683"}}>{day.period}</h3>}
-      <Link to={day.slug}
-        className={css`
-          text-decoration: none;
-          color: inherit;
-          font-size: small;
-        `}>
-        <h4 className={css`
-            margin-bottom: ${rhythm(1 / 5)};
-            margin-top: ${rhythm(1 / 5)};  
-          `}>
-          {day.title}
-        </h4>
-        </Link>
-        <p style={{color:"gray"}}>{day.info}</p>
-    </div>
-  )})
-  let period = "";
+  })
+  //Sort weeks and days
+  for(let period in periods){
+    periods[period].weeks = periods[period].weeks.sort((a,b) => a.shortTitle >= b.shortTitle? 1 : -1)
+    periods[period].weeks.forEach(week => {
+      week.days = week.days.sort((a,b) => a.shortTitle >= b.shortTitle? 1 : -1);
+    })
+  }
+
+  const periodHeaderStyle = {borderBottom:"1px solid",display:"block",fontSize:"x-large",color:"steelBlue"}
+  const weekHeaderStyle = {...periodHeaderStyle,fontSize:"large",fontWeight:"bold",borderBottom:"none",marginTop:6}
+  const html = Object.keys(periods).reduce((acc,cur)=>{
+  acc.push(<p key={cur} style={periodHeaderStyle}>{periods[cur].period}</p>)
+     periods[cur].weeks.forEach(week => {
+       acc.push(<p key={week.id} style={weekHeaderStyle}>{week.shortTitle}</p>)
+       week.days.forEach(day => {
+          acc.push(<p key={day.id} className="ellipsis"><a href={day.slug}> {day.linkText}</a> <span style={{fontStyle:"italic"}} >{day.pageintro}</span> </p>)
+       })
+     })
+     return acc;
+  },[])
+  
   return (
     <Layout>
       <div>
@@ -66,40 +71,38 @@ export default ({ data }) => {
             display: inline-block;
             border-bottom: 1px solid;
             margin: 0px;
-            color:#295683;
+            color: #295683;
           `}
         >
           Full Semester Schedule
         </h1>
-        <p style={{marginTop:8, fontStyle:"italic"}}>
-        Don't count on information more more than 1-2 lessons into the future, 
-        since content most likely will change</p>
-        {/* <h4>{days.length} Posts</h4> */}
-        {daysAsLinks}
+        <p style={{ marginTop: 8, fontStyle: "italic" }}>
+          Don't count 100% on information more more than a week into the future,
+          since content most likely will change.
+        </p>
+        {html}
       </div>
     </Layout>
-  )
-}
+  );
+};
 
 export const query = graphql`
   query {
     allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
       totalCount
-      edges {
-        node {
-          id
-          frontmatter {
-            title
-            pageintro
-            period
-          }
-          fields {
-            slug
-            shortTitle
-          }
-          excerpt
+      nodes {
+        id
+        frontmatter {
+          pageintro
+        }
+        fields {
+          slug
+          shortTitle
+          depth
+          inFolder
+          isIndex
         }
       }
     }
   }
-`
+`;
