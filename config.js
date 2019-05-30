@@ -4,7 +4,8 @@ module.exports = {
   classes: [
     { value: 'a', label: 'A-class',backgroundColor:"#295683" },
     { value: 'b', label: 'B-class',backgroundColor:"black" },
-    { value: 'c', label: 'Bornholm',backgroundColor: "#003300" }
+    //{ value: 'c', label: 'Bornholm',backgroundColor: "#003300" }
+    { value: 'c', label: 'Bornholm',backgroundColor: "#cc6600" }
   ],
   showWeekInfoForEachDayInWeek : false,
   timeEdit: "https://cloud.timeedit.net/cphbusiness/web/student",
