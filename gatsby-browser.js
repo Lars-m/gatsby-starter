@@ -20,7 +20,16 @@ exports.onServiceWorkerUpdateFound = o => {
 };
 exports.onServiceWorkerUpdateReady = o => {
   console.log("OnServiceWorkerUpdateFound", o);
-  window.location.reload(true);
+  //window.location.reload(true);
+  const answer = window.confirm(
+    `This application has been updated. ` +
+      `Reload to display the latest version?`
+  )
+
+  if (answer === true) {
+    window.location.reload()
+  }
+
   if ("Notification" in window) {
     var notification = new Notification("App was updated", {
       body: "Your app has new content"
