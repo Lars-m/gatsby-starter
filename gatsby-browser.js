@@ -10,7 +10,7 @@ exports.onServiceWorkerUpdateFound = o => {
   }
 };
 exports.onServiceWorkerUpdateReady = o => {
-  console.log("OnServiceWorkerUpdateFound", o);
+  console.log("OnServiceWorkerUpdateFound --> ", o);
   window.location.reload(true);
   if ("Notification" in window) {
     var notification = new Notification("App was updated", {
