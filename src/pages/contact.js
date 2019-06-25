@@ -14,6 +14,8 @@ export default () => {
 )
 }
 
+
+//BELOW is just some test's
 function test_findLinksMarkedWithTag(){
   const testString = `
   ---

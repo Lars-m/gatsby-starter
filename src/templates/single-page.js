@@ -46,8 +46,7 @@ export const query = graphql`
         slug
       }
       frontmatter {
-        title
-        period
+        title        
         date
         headertext
       }

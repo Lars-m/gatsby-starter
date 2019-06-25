@@ -234,7 +234,6 @@ var query = graphql`
       nodes {
         id
         frontmatter {
-          period
           date
         }
 

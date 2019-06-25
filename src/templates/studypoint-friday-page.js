@@ -86,7 +86,6 @@ export const query = graphql`
       }
       frontmatter {
         title
-        period
         date
         headertext
       }

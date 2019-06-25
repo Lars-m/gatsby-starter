@@ -7,6 +7,8 @@ pageintro: |
 
 ### Before this lesson you should:
 
+
+
 <!--BEGIN readings ##-->
 
 - :book: [The test Pyramid (5-10 min)](https://martinfowler.com/bliki/TestPyramid.html)
@@ -19,6 +21,10 @@ pageintro: |
 <!--BEGIN exercises ##-->
 [Test Driven Desing with JUnit](https://docs.google.com/document/d/107xr-XJY9qPyYKZlWZW6usw5xuZm48pNrwKPBQ3F9WE/edit?usp=sharing)
 <!--END exercises ##-->
+
+<!--BEGIN exercises_guidelines ##-->
+
+<!--END exercises_guidelines ##-->
   
 **Slides:** 
 <!--BEGIN slides ##-->

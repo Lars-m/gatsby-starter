@@ -94,7 +94,6 @@ export const query = graphql`
       }
       frontmatter {
         title
-        period
         date
         pageintro
         headertext
@@ -105,7 +104,6 @@ export const query = graphql`
           html
           frontmatter {
             title
-            period
             date
             pageintro
           }

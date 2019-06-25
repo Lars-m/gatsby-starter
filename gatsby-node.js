@@ -25,9 +25,7 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     const parentFolder = folderName.substring(0,folderIndex);
     const depth = fileParts.length-1;
 
-    //console.log("FOLDER",folderName,`(${fileParts[fileParts.length-1]})`,`(${relevantPath})`)
-   // console.log("Parent",parentFolder,`Depth: ${depth}`)
-    
+     
     
     const parts = slug.split("/");
     //Always include the slug
@@ -58,7 +56,8 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
       shortTitle = node.frontmatter.date ? node.frontmatter.date : node.frontmatter.shortTitle;
     }
     if(!shortTitle){
-      shortTitle = fileName;
+      //Remove Extension. The API will think it's a File if it looks like a file ???????
+      shortTitle = path.basename(fileName,path.extname(fileName));
     }
     if(shortTitle){
       createNodeField({
